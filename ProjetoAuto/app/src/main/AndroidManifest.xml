@@ -11,8 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetoAuto"
         tools:targetApi="31">
+
         <activity
-            android:name=".MainActivity"
+            android:name=".auth.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,6 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".auth.CriarContaActivity"/>
+        <activity android:name=".auth.RecuperaContaActivity"/>
+        <activity android:name=".activity.MainActivity" />
     </application>
 
 </manifest>
