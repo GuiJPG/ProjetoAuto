@@ -30,7 +30,7 @@ public class CriarContaActivity extends AppCompatActivity {
         configCliques();
     }
 
-    private void configTabsLayout(){
+    private void configTabsLayout() {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         viewPagerAdapter.addFragment(new UsuarioFragment(), "Usuário");
@@ -42,11 +42,11 @@ public class CriarContaActivity extends AppCompatActivity {
         tab_layout.setupWithViewPager(view_pager);
     }
 
-    private void configCliques(){
+    private void configCliques() {
         findViewById(R.id.ib_voltar).setOnClickListener(v -> finish());
     }
 
-    private void iniciaComponentes(){
+    private void iniciaComponentes() {
         TextView text_toolbar = findViewById(R.id.text_toolbar);
         text_toolbar.setText("Criar Conta");
 
