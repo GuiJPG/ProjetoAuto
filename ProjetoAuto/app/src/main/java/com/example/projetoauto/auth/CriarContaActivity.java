@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import com.example.projetoauto.R;
 import com.example.projetoauto.adapter.ViewPagerAdapter;
-import com.example.projetoauto.fragment.EmpresaFragment;
-import com.example.projetoauto.fragment.UsuarioFragment;
+import com.example.projetoauto.fragment.empresa.EmpresaFragment;
+import com.example.projetoauto.fragment.usuario.UsuarioFragment;
 import com.google.android.material.tabs.TabLayout;
 
 public class CriarContaActivity extends AppCompatActivity {

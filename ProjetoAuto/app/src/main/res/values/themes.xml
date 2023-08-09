@@ -26,4 +26,9 @@
         <item name="textAllCaps">false</item>
     </style>
 
+    //Style da barra de menu
+    <style name="ThemeBottomNavigationOn">
+        <item name="android:textSize">14sp</item>
+    </style>
+
 </resources>
