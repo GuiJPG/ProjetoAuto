@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation_usuario"
+    app:startDestination="@+id/menu_home">
+    <fragment
+        android:id="@+id/menu_home"
+        android:name="com.example.projetoauto.fragment.empresa.EmpresaHomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_empresa_home" />
+    <fragment
+        android:id="@+id/menu_chat_empresa"
+        android:name="com.example.projetoauto.fragment.empresa.EmpresaChatFragment"
+        android:label="@string/menu_chat"
+        tools:layout="@layout/fragment_empresa_chat" />
+    <fragment
+        android:id="@+id/menu_financeiro"
+        android:name="com.example.projetoauto.fragment.empresa.EmpresaFinanceiroFragment"
+        android:label="@string/menu_financeiro"
+        tools:layout="@layout/fragment_empresa_financeiro" />
+    <fragment
+        android:id="@+id/menu_minha_conta"
+        android:name="com.example.projetoauto.fragment.empresa.EmpresaPerfilFragment"
+        android:label="@string/menu_conta"
+        tools:layout="@layout/fragment_empresa_perfil" />
+</navigation>
