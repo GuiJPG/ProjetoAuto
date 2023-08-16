@@ -7,4 +7,5 @@
     <string name="menu_favoritos">Favoritos</string>
     <string name="menu_financeiro">Financeiro</string>
     <string name="menu_conta">Conta</string>
+    <string name="menu_agenda">Agenda</string>
 </resources>

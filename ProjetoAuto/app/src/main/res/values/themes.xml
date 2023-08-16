@@ -15,7 +15,13 @@
         <!-- Customize your theme here. -->
     </style>
 
-    //Style da progressbar
+    <!-- Stylo barra superior -->
+    <style name="Theme.ProjetoAuto1" parent="Theme.ProjetoAuto">
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <!-- Style da progressbar -->
     <style name="ProgressBar" parent="Theme.ProjetoAuto">
         <item name="colorAccent">@color/blue_dark</item>
     </style>
@@ -26,7 +32,7 @@
         <item name="textAllCaps">false</item>
     </style>
 
-    //Style da barra de menu
+    <!-- Style da barra de menu -->
     <style name="ThemeBottomNavigationOn">
         <item name="android:textSize">14sp</item>
     </style>

@@ -1,10 +1,14 @@
 package com.example.projetoauto.activity.usuario;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 
 import com.example.projetoauto.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class UsuarioHomeActivity extends AppCompatActivity {
 
@@ -12,6 +16,10 @@ public class UsuarioHomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario_home);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        NavController navController = Navigation.findNavController(this,R.id.nav_host_fragment);
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
     }
 
 

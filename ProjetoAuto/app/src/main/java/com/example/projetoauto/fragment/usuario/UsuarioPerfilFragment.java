@@ -1,66 +1,109 @@
 package com.example.projetoauto.fragment.usuario;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.projetoauto.R;
+import com.example.projetoauto.activity.usuario.UsuarioFavoritosActivity;
+import com.example.projetoauto.activity.usuario.UsuarioPerfilActivity;
+import com.example.projetoauto.auth.CriarContaActivity;
+import com.example.projetoauto.auth.LoginActivity;
+import com.example.projetoauto.helper.FirebaseHelper;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link UsuarioPerfilFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class UsuarioPerfilFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private ConstraintLayout constraint_logado;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private ConstraintLayout constraint_deslogado;
 
-    public UsuarioPerfilFragment() {
-        // Required empty public constructor
-    }
+    private LinearLayout menu_perfil;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment UsuarioPerfilFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static UsuarioPerfilFragment newInstance(String param1, String param2) {
-        UsuarioPerfilFragment fragment = new UsuarioPerfilFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private LinearLayout menu_favoritos;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private LinearLayout menu_deslogar;
 
+    private Button btn_entrar;
+
+    private Button btn_cadastrar;
+
+    private TextView text_usuario;
+
+
+    //onCreateView chama so uma vez
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_usuario_perfil, container, false);
+        View view = inflater.inflate(R.layout.fragment_usuario_perfil, container, false);
+
+       iniciaComponetes(view);
+
+        configCliques();
+
+        return view;
+    }
+
+
+    //onStart sempre que acessar chama o metodo
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        verificaAcesso();
+    }
+
+    private void verificaAcesso(){
+        if(FirebaseHelper.getAutenticado()){
+            constraint_deslogado.setVisibility(View.GONE);
+            constraint_logado.setVisibility(View.VISIBLE);
+            menu_deslogar.setVisibility(View.VISIBLE);
+            menu_perfil.setVisibility(View.VISIBLE);
+            menu_favoritos.setVisibility(View.VISIBLE);
+            text_usuario.setText(FirebaseHelper.getAuth().getCurrentUser().getDisplayName());
+        }else{
+            constraint_deslogado.setVisibility(View.VISIBLE);
+            constraint_logado.setVisibility(View.GONE);
+            menu_deslogar.setVisibility(View.GONE);
+            menu_perfil.setVisibility(View.GONE);
+            menu_favoritos.setVisibility(View.GONE);
+
+        }
+
+    }
+
+    private void configCliques(){
+        btn_entrar.setOnClickListener(v -> startActivity(new Intent(requireActivity(), LoginActivity.class)));
+        btn_cadastrar.setOnClickListener(v -> startActivity(new Intent(requireActivity(), CriarContaActivity.class)));
+
+        menu_deslogar.setOnClickListener(v -> deslogar());
+        menu_perfil.setOnClickListener(V -> startActivity(new Intent(requireActivity(), UsuarioPerfilActivity.class)));
+        menu_favoritos.setOnClickListener(V -> startActivity(new Intent(requireActivity(), UsuarioFavoritosActivity.class)));
+    }
+
+    private void deslogar(){
+        FirebaseHelper.getAuth().signOut();
+        Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.menu_deslogar);
+    }
+
+    private void iniciaComponetes(View view){
+        constraint_logado = view.findViewById(R.id.constraint_logado);
+        constraint_deslogado = view.findViewById(R.id.constraint_deslogado);
+        menu_perfil = view.findViewById(R.id.menu_perfil);
+        menu_favoritos = view.findViewById(R.id.menu_favoritos);
+        menu_deslogar = view.findViewById(R.id.menu_deslogar);
+        btn_entrar = view.findViewById(R.id.btn_entrar);
+        btn_cadastrar = view.findViewById(R.id.btn_cadastrar);
+        text_usuario = view.findViewById(R.id.text_usuario);
     }
 }
