@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.projetoauto.R;
-import com.example.projetoauto.activity.empresa.EmpresaCategoriasActivity;
 import com.example.projetoauto.activity.empresa.EmpresaEnderecosActivity;
 import com.example.projetoauto.activity.empresa.EmpresaPerfilActivity;
 import com.example.projetoauto.activity.usuario.UsuarioHomeActivity;
@@ -28,8 +26,6 @@ public class EmpresaPerfilFragment extends Fragment {
     private TextView text_empresa;
 
     private LinearLayout menu_perfil_empresa;
-
-    private LinearLayout menu_categorias;
 
     private LinearLayout menu_enderecos;
 
@@ -45,9 +41,15 @@ public class EmpresaPerfilFragment extends Fragment {
 
         configCliques();
 
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
         configAcesso();
 
-        return view;
     }
 
     private void configAcesso(){
@@ -57,7 +59,6 @@ public class EmpresaPerfilFragment extends Fragment {
 
     private void configCliques(){
         menu_perfil_empresa.setOnClickListener(v -> startActivity(new Intent(requireActivity(), EmpresaPerfilActivity.class)));
-        menu_categorias.setOnClickListener(v -> startActivity(new Intent(requireActivity(), EmpresaCategoriasActivity.class)));
         menu_enderecos.setOnClickListener(v -> startActivity(new Intent(requireActivity(), EmpresaEnderecosActivity.class)));
         menu_deslogar.setOnClickListener(v -> deslogar());
 
@@ -75,7 +76,6 @@ public class EmpresaPerfilFragment extends Fragment {
         img_logo = view.findViewById(R.id.img_logo);
         text_empresa = view.findViewById(R.id.text_empresa);
         menu_perfil_empresa = view.findViewById(R.id.menu_perfil_empresa);
-        menu_categorias = view.findViewById(R.id.menu_categorias);
         menu_enderecos = view.findViewById(R.id.menu_enderecos);
         menu_deslogar = view.findViewById(R.id.menu_deslogar);
 

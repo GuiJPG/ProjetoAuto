@@ -22,7 +22,7 @@
         app:labelVisibilityMode="unlabeled"/>
 
 
-    <fragment
+   <fragment
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         app:defaultNavHost="true"

@@ -24,6 +24,7 @@ public class Empresa implements Serializable {
     private String endereco;
 
     public Empresa() {
+
     }
 
     public void salvar() {

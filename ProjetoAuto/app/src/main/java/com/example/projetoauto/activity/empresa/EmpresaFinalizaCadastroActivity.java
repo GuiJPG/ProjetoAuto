@@ -36,7 +36,7 @@ public class EmpresaFinalizaCadastroActivity extends AppCompatActivity {
     /* Modificadores de acesso de Logo */
     private final int REQUEST_GALERIA = 100;
     private ImageView img_logo;
-    private String caminhoLogo;
+    private String caminhoLogo = "";
 
     private ProgressBar progressBar;
 

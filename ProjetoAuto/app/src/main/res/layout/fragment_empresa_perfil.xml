@@ -29,6 +29,7 @@
                     android:layout_height="60dp"
                     android:layout_marginStart="24dp"
                     android:layout_marginBottom="16dp"
+                    android:layout_marginTop="24dp"
                     app:cardCornerRadius="100dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -118,52 +119,6 @@
 
             </LinearLayout>
 
-            <include layout="@layout/divisor" />
-
-            <!-- Botão para acessar categorias -->
-            <LinearLayout
-                android:id="@+id/menu_categorias"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="24dp"
-                    android:src="@drawable/ic_categoria" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Categorias"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Categorias de automóveis" />
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="24dp"
-                    android:src="@drawable/ic_next" />
-
-
-            </LinearLayout>
 
             <include layout="@layout/divisor" />
 
@@ -211,6 +166,8 @@
 
 
             </LinearLayout>
+
+            <include layout="@layout/divisor" />
 
             <!-- Botão para sair da conta de usuario -->
             <LinearLayout
