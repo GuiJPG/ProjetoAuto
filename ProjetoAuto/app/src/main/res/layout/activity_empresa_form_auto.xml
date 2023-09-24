@@ -159,7 +159,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edt_descricao" />
             <android.widget.Button
-                android:id="@+id/bnt_tipo"
+                android:id="@+id/btn_tipo"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -189,7 +189,7 @@
                 android:text="Placa"
                 android:textColor="@color/blue_dark"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bnt_tipo" />
+                app:layout_constraintTop_toBottomOf="@+id/btn_tipo" />
             <EditText
                 android:id="@+id/edt_placa"
                 android:layout_width="match_parent"
@@ -232,12 +232,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
-                android:text="Ano do Modelo"
+                android:text="Ano"
                 android:textColor="@color/blue_dark"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edt_modelo" />
             <EditText
-                android:id="@+id/edt_ano_modelo"
+                android:id="@+id/edt_ano"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -246,7 +246,7 @@
                 android:padding="16dp"
                 android:inputType="date"
                 android:background="@drawable/bg_edt"
-                android:hint="Ano Modelo"
+                android:hint="2020/2020"
                 app:layout_constraintTop_toBottomOf="@+id/textView8"/>
 
             <!-- Quilometragem -->
@@ -259,7 +259,7 @@
                 android:text="Quilometragem"
                 android:textColor="@color/blue_dark"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edt_ano_modelo"/>
+                app:layout_constraintTop_toBottomOf="@+id/edt_ano"/>
             <EditText
                 android:id="@+id/edt_quilometragem"
                 android:layout_width="match_parent"
