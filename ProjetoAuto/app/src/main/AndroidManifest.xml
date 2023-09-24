@@ -31,6 +31,7 @@
         <activity android:name=".activity.empresa.EmpresaFormEnderecoActivity" />
         <activity android:name=".activity.empresa.EmpresaFormAutoActivity" />
         <activity android:name=".activity.empresa.EmpresaTipoAutomovelActivity" />
+        <activity android:name=".activity.empresa.EmpresaSelecionaEnderecoActivity"/>
         <!-- Telas de Autenticação -->
         <activity
             android:name=".auth.LoginActivity"

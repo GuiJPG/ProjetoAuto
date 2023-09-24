@@ -1,5 +1,6 @@
 package com.example.projetoauto.activity.empresa;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,11 +14,19 @@ import android.widget.TextView;
 
 import com.blackcat.currencyedittext.CurrencyEditText;
 import com.example.projetoauto.R;
+import com.example.projetoauto.helper.FirebaseHelper;
+import com.example.projetoauto.model.Endereco;
 import com.example.projetoauto.model.Tipo;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Locale;
 
 public class EmpresaFormAutoActivity extends AppCompatActivity {
+
+    private Endereco endereco;
 
     private ImageView img0;
     private ImageView img1;
@@ -34,12 +43,15 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
     private CurrencyEditText edt_valor_comprado;
 
     private Button btn_endereco;
+    private TextView txt_endereco;
 
     private TextView text_toolbar;
 
     private final int REQUEST_TIPO = 100;
+    private final int REQUEST_ENDERECO = 200;
 
     private String tipoSelecionado = "";
+    private String enderecoSelecionado = "";
 
 
 
@@ -50,9 +62,11 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_empresa_form_auto);
 
+        iniciaComponentes();
+
         configCliques();
 
-        iniciaComponentes();
+        recuperaEndereco();
     }
 
 
@@ -69,17 +83,55 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
         startActivityForResult(intent, REQUEST_TIPO);
     }
 
+    public void selecionarEndereco(View view){
+        Intent intent = new Intent(this, EmpresaSelecionaEnderecoActivity.class);
+        startActivityForResult(intent, REQUEST_ENDERECO);
+
+    }
+
+    private void recuperaEndereco(){
+        if(FirebaseHelper.getAutenticado()){
+            DatabaseReference enderecoRef = FirebaseHelper.getDatabaseReference()
+                    .child("enderecos")
+                    .child(FirebaseHelper.getIdFirebase());
+
+            enderecoRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+                        for(DataSnapshot ds : snapshot.getChildren()){
+                            endereco = ds.getValue(Endereco.class);
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode == RESULT_OK){
+
             if(requestCode == REQUEST_TIPO){
 
                 Tipo tipo = (Tipo) data.getSerializableExtra("tipoSelecionado");
                 tipoSelecionado = tipo.getNome();
                 btn_tipo.setText(tipoSelecionado);
 
+
+            }else if(requestCode == REQUEST_ENDERECO){
+                endereco = (Endereco) data.getSerializableExtra("enderecoSelecionado");
+                enderecoSelecionado = endereco.getLogradouro();
+                txt_endereco.setText(endereco.getBairro() + " " + endereco.getUf());
+                btn_endereco.setText(enderecoSelecionado);
 
             }else if(true){ //Camera
 
@@ -100,6 +152,7 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
         edt_modelo = findViewById(R.id.edt_modelo);
         edt_ano = findViewById(R.id.edt_ano);
         btn_endereco = findViewById(R.id.btn_endereco);
+        txt_endereco = findViewById(R.id.txt_endereco);
 
         edt_valor_vendido = findViewById(R.id.edt_valor_vendido);
         edt_valor_vendido.setLocale(new Locale("PT", "br"));
