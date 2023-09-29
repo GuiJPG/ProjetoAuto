@@ -18,6 +18,7 @@ public class EmpresaTipoAutomovelActivity extends AppCompatActivity implements A
     private RecyclerView rv_tipo;
    private AdapterTipo adapterTipo;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

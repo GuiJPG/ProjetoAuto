@@ -236,7 +236,7 @@
                 android:textColor="@color/blue_dark"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edt_modelo" />
-            <EditText
+            <com.santalu.maskara.widget.MaskEditText
                 android:id="@+id/edt_ano"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -246,6 +246,9 @@
                 android:padding="16dp"
                 android:inputType="date"
                 android:background="@drawable/bg_edt"
+                app:mask="____/____"
+                app:maskCharacter="_"
+                app:maskStyle="completable"
                 android:hint="2020/2020"
                 app:layout_constraintTop_toBottomOf="@+id/textView8"/>
 
@@ -285,7 +288,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edt_quilometragem" />
             <com.blackcat.currencyedittext.CurrencyEditText
-                android:id="@+id/edt_valor_vendido"
+                android:id="@+id/edt_valor_de_venda"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -307,7 +310,7 @@
                 android:text="Preço comprado"
                 android:textColor="@color/blue_dark"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edt_valor_vendido" />
+                app:layout_constraintTop_toBottomOf="@+id/edt_valor_de_venda" />
             <com.blackcat.currencyedittext.CurrencyEditText
                 android:id="@+id/edt_valor_comprado"
                 android:layout_width="match_parent"
