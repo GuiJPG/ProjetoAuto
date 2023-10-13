@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -36,6 +37,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
 import com.santalu.maskara.widget.MaskEditText;
@@ -146,9 +149,42 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
                                         if(valorComprado > 0){
                                             if(!enderecoSelecionado.isEmpty()){
 
+                                                if(automovel == null) automovel = new Automovel();
+                                                automovel.setIdEmpresa(FirebaseHelper.getIdFirebase());
+                                                automovel.setTitulo(titulo);
+                                                automovel.setDescricao(descricao);
+                                                automovel.setPlaca(placa);
+                                                automovel.setModelo(modelo);
+                                                automovel.setAno(ano);
+                                                automovel.setQuilometragem(quilometragem);
+                                                automovel.setValorDeVenda(valorDeVenda);
+                                                automovel.setValorComprado(valorComprado);
+
+                                                automovel.setIdTipo(tipoSelecionado);
+                                                automovel.setIdEndereco(enderecoSelecionado);
 
 
+                                                automovel.setEndereco(endereco);
 
+                                               if(novoAutomovel){
+                                                    if(imagemList.size() == 3){
+                                                        for(int i = 0; i < imagemList.size(); i++){
+                                                           salvarImagemFirebase(imagemList.get(i), i);
+                                                        }
+                                                    }else{
+                                                        Toast.makeText(this, "Selecione 3 Imagens", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }else{
+                                                    if(imagemList.size() > 0){
+                                                        for(int i = 0; i < imagemList.size(); i++){
+                                                            salvarImagemFirebase(imagemList.get(i), i);
+                                                        }
+
+                                                    }else{
+                                                        automovel.salvar(this, novoAutomovel);
+                                                    }
+
+                                                }
 
                                             }else{
                                                 btn_endereco.requestFocus();
@@ -198,6 +234,32 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
 
 
     }
+
+    private void salvarImagemFirebase(Imagem imagem, int index){
+        StorageReference storageReference = FirebaseHelper.getStorageReference()
+                .child("imagens")
+                .child("automoveis")
+                .child(automovel.getId())
+                .child("imagem" + index + ".jpeg");
+
+        UploadTask uploadTask = storageReference.putFile(Uri.parse(imagem.getCaminhoimagem()));
+        uploadTask.addOnSuccessListener(taskSnapshot -> storageReference.getDownloadUrl().addOnCompleteListener(task -> {
+
+            imagem.setCaminhoimagem(task.getResult().toString());
+
+            if(novoAutomovel){
+                automovel.getUrlImagens().add(imagem);
+            }else{
+                automovel.getUrlImagens().set(index, imagem);
+            }
+            if(imagemList.size() == index + 1){
+                automovel.salvar(this, novoAutomovel);
+            }
+
+        })).addOnFailureListener(e -> Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show());
+        //Salva as imagens como imagem0.jpeg......
+    }
+
 
     private void erroSalvarTipoAutomovel() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

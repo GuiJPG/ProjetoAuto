@@ -1,7 +1,13 @@
 package com.example.projetoauto.model;
 
+import android.app.Activity;
+import android.content.Intent;
+
+import com.example.projetoauto.activity.MainActivity;
+import com.example.projetoauto.activity.empresa.EmpresaHomeActivity;
 import com.example.projetoauto.helper.FirebaseHelper;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ServerValue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,13 +21,17 @@ public class Automovel {
     private String modelo;
     private String ano;
     private String quilometragem;
-    private String valorVendido;
-    private String valorComprado;
+    private Double valorDeVenda;
+    private Double valorComprado;
 
     private String idEmpresa;
     private String idTipo;
 
-    private List<String> urlImagens = new ArrayList<>();
+    private String idEndereco;
+
+    private long dataPublicacao;
+
+    private final List<Imagem> urlImagens = new ArrayList<>();
 
     private Endereco endereco;
 
@@ -33,13 +43,42 @@ public class Automovel {
     }
 
 
-    public void salvar(){
+    public void salvar(Activity activity, boolean novoAutomovel){
+        DatabaseReference automoveisPublicosRef = FirebaseHelper.getDatabaseReference()
+                .child("automoveis_publicos")
+                .child(this.getId());
+        automoveisPublicosRef.setValue(this);
+
+        DatabaseReference meusAutomoveisRef = FirebaseHelper.getDatabaseReference()
+                .child("meus_automoveis")
+                .child(FirebaseHelper.getIdFirebase())
+                .child(this.getId());
+        meusAutomoveisRef.setValue(this);
+
+        if(novoAutomovel){
+            DatabaseReference dataAutomovelPublico = automoveisPublicosRef
+                    .child("dataPublicacao");
+            dataAutomovelPublico.setValue(ServerValue.TIMESTAMP);
+
+            DatabaseReference dataAutomovel = meusAutomoveisRef
+                    .child("dataPublicacao");
+            dataAutomovel.setValue(ServerValue.TIMESTAMP).addOnCompleteListener(task -> {
+                activity.finish();
+                Intent intent = new Intent(activity, EmpresaHomeActivity.class);
+                activity.startActivity(intent);
+            });
+        }else{
+            activity.finish();
+        }
 
     }
 
     public void remover(){
 
     }
+
+
+
 
     public String getId() {
         return id;
@@ -97,19 +136,19 @@ public class Automovel {
         this.quilometragem = quilometragem;
     }
 
-    public String getValorVendido() {
-        return valorVendido;
+    public Double getValorDeVenda() {
+        return valorDeVenda;
     }
 
-    public void setValorVendido(String valorVendido) {
-        this.valorVendido = valorVendido;
+    public void setValorDeVenda(Double valorDeVenda) {
+        this.valorDeVenda = valorDeVenda;
     }
 
-    public String getValorComprado() {
+    public Double getValorComprado() {
         return valorComprado;
     }
 
-    public void setValorComprado(String valorComprado) {
+    public void setValorComprado(Double valorComprado) {
         this.valorComprado = valorComprado;
     }
 
@@ -129,12 +168,22 @@ public class Automovel {
         this.idTipo = idTipo;
     }
 
-    public List<String> getUrlImagens() {
+    public List<Imagem> getUrlImagens() {
         return urlImagens;
     }
 
-    public void setUrlImagens(List<String> urlImagens) {
+    /*public void setUrlImagens(List<String> urlImagens) {
         this.urlImagens = urlImagens;
+    }*/
+
+    public String getIdEndereco() {
+        return idEndereco;
+    }
+
+
+
+    public void setIdEndereco(String idEndereco) {
+        this.idEndereco = idEndereco;
     }
 
     public Endereco getEndereco() {
@@ -143,5 +192,13 @@ public class Automovel {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    public long getDataPublicacao() {
+        return dataPublicacao;
+    }
+
+    public void setDataPublicacao(long dataPublicacao) {
+        this.dataPublicacao = dataPublicacao;
     }
 }
