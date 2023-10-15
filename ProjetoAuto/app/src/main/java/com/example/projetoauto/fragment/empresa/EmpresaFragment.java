@@ -35,7 +35,7 @@ public class EmpresaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_empresa, container, false);
+        View view = inflater.inflate(R.layout.fragment_empresa, container, false);
 
         iniciaComponentes(view);
 
@@ -44,20 +44,20 @@ public class EmpresaFragment extends Fragment {
         return view;
     }
 
-    private void configCliques(){
+    private void configCliques() {
         btn_criar_conta.setOnClickListener(v -> validaDadosEmpresa());
     }
 
-    private void validaDadosEmpresa(){
+    private void validaDadosEmpresa() {
         String nome = edt_nome.getText().toString();
         String email = edt_email.getText().toString();
         String telefone = edt_telefone.getUnMasked();
         String senha = edt_senha.getText().toString();
 
-        if(!nome.isEmpty()){
-            if(!email.isEmpty()){
-                if(edt_telefone.isDone()){
-                    if(!senha.isEmpty()){
+        if (!nome.isEmpty()) {
+            if (!email.isEmpty()) {
+                if (edt_telefone.isDone()) {
+                    if (!senha.isEmpty()) {
 
                         ocultarTeclado();
 
@@ -71,30 +71,30 @@ public class EmpresaFragment extends Fragment {
 
                         criarConta(empresa);
 
-                    }else{
+                    } else {
                         edt_senha.requestFocus();
                         edt_senha.setError("Preencha sua senha");
                     }
 
-                }else{
+                } else {
                     edt_telefone.requestFocus();
                     edt_telefone.setError("Preencha seu telefone");
                 }
 
-            }else{
+            } else {
                 edt_email.requestFocus();
                 edt_email.setError("Preencha seu Email");
             }
 
-        }else{
+        } else {
             edt_nome.requestFocus();
             edt_nome.setError("Preencha seu nome");
         }
     }
 
-    private void criarConta(Empresa empresa){
+    private void criarConta(Empresa empresa) {
         FirebaseHelper.getAuth().createUserWithEmailAndPassword(empresa.getEmail(), empresa.getSenha()).addOnCompleteListener(task -> {
-            if(task.isSuccessful()){
+            if (task.isSuccessful()) {
 
                 String id = task.getResult().getUser().getUid();
 
@@ -111,7 +111,7 @@ public class EmpresaFragment extends Fragment {
                 intent.putExtra("empresa", empresa);
                 startActivity(intent);
 
-            }else{
+            } else {
                 //Validação de erro
                 progressBar.setVisibility(View.GONE);
                 erroAutenticacao(FirebaseHelper.validarErros(task.getException().getMessage()));
@@ -131,7 +131,7 @@ public class EmpresaFragment extends Fragment {
         dialog.show();
     }
 
-    private void iniciaComponentes(View view){
+    private void iniciaComponentes(View view) {
         edt_nome = view.findViewById(R.id.edt_nome);
         edt_email = view.findViewById(R.id.edt_email);
         edt_telefone = view.findViewById(R.id.edt_telefone);
@@ -140,7 +140,7 @@ public class EmpresaFragment extends Fragment {
         btn_criar_conta = view.findViewById(R.id.btn_criar_conta);
     }
 
-    private void ocultarTeclado(){
+    private void ocultarTeclado() {
         ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
                 btn_criar_conta.getWindowToken(), 0
         );

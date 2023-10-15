@@ -9,10 +9,10 @@ import java.util.List;
 
 public class TipoList {
 
-    public static List<Tipo> getList(boolean todas){
+    public static List<Tipo> getList(boolean todas) {
 
         List<Tipo> categoriaList = new ArrayList<>();
-        if(todas) categoriaList.add(new Tipo(R.drawable.ic_todos_tipos, "Todos os Tipos"));
+        if (todas) categoriaList.add(new Tipo(R.drawable.ic_todos_tipos, "Todos os Tipos"));
         categoriaList.add(new Tipo(R.drawable.ic_moto, "A - Motos e Triciclos"));
         categoriaList.add(new Tipo(R.drawable.ic_carro, "B - Carros de Passeios"));
         categoriaList.add(new Tipo(R.drawable.ic_caminhao, "C - Veiculos de Carga + 3,5 ton."));

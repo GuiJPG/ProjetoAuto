@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +15,11 @@ import android.widget.TextView;
 
 import com.example.projetoauto.R;
 import com.example.projetoauto.activity.usuario.UsuarioFavoritosActivity;
+import com.example.projetoauto.activity.usuario.UsuarioHomeActivity;
 import com.example.projetoauto.activity.usuario.UsuarioPerfilActivity;
 import com.example.projetoauto.auth.CriarContaActivity;
 import com.example.projetoauto.auth.LoginActivity;
 import com.example.projetoauto.helper.FirebaseHelper;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class UsuarioPerfilFragment extends Fragment {
 
@@ -47,7 +46,7 @@ public class UsuarioPerfilFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_usuario_perfil, container, false);
 
-       iniciaComponetes(view);
+        iniciaComponetes(view);
 
         configCliques();
 
@@ -63,15 +62,15 @@ public class UsuarioPerfilFragment extends Fragment {
         verificaAcesso();
     }
 
-    private void verificaAcesso(){
-        if(FirebaseHelper.getAutenticado()){
+    private void verificaAcesso() {
+        if (FirebaseHelper.getAutenticado()) {
             constraint_deslogado.setVisibility(View.GONE);
             constraint_logado.setVisibility(View.VISIBLE);
             menu_deslogar.setVisibility(View.VISIBLE);
             menu_perfil.setVisibility(View.VISIBLE);
             menu_favoritos.setVisibility(View.VISIBLE);
             text_usuario.setText(FirebaseHelper.getAuth().getCurrentUser().getDisplayName());
-        }else{
+        } else {
             constraint_deslogado.setVisibility(View.VISIBLE);
             constraint_logado.setVisibility(View.GONE);
             menu_deslogar.setVisibility(View.GONE);
@@ -82,7 +81,7 @@ public class UsuarioPerfilFragment extends Fragment {
 
     }
 
-    private void configCliques(){
+    private void configCliques() {
         btn_entrar.setOnClickListener(v -> startActivity(new Intent(requireActivity(), LoginActivity.class)));
         btn_cadastrar.setOnClickListener(v -> startActivity(new Intent(requireActivity(), CriarContaActivity.class)));
 
@@ -91,12 +90,13 @@ public class UsuarioPerfilFragment extends Fragment {
         menu_favoritos.setOnClickListener(V -> startActivity(new Intent(requireActivity(), UsuarioFavoritosActivity.class)));
     }
 
-    private void deslogar(){
+    private void deslogar() {
         FirebaseHelper.getAuth().signOut();
-        Navigation.findNavController(requireActivity(),R.id.nav_host_fragment).navigate(R.id.menu_deslogar);
+        requireActivity().finish();
+        startActivity(new Intent(requireActivity(), UsuarioHomeActivity.class));
     }
 
-    private void iniciaComponetes(View view){
+    private void iniciaComponetes(View view) {
         constraint_logado = view.findViewById(R.id.constraint_logado);
         constraint_deslogado = view.findViewById(R.id.constraint_deslogado);
         menu_perfil = view.findViewById(R.id.menu_perfil);

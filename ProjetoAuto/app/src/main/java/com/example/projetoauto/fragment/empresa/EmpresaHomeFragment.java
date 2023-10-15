@@ -1,7 +1,6 @@
 package com.example.projetoauto.fragment.empresa;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 

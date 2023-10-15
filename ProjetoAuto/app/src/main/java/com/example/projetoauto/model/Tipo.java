@@ -2,7 +2,7 @@ package com.example.projetoauto.model;
 
 import java.io.Serializable;
 
-public class Tipo implements Serializable{
+public class Tipo implements Serializable {
 
     private int caminho;
     private String nome;

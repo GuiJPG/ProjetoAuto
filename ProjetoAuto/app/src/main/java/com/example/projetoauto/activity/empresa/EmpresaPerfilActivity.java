@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -193,9 +192,9 @@ public class EmpresaPerfilActivity extends AppCompatActivity {
                 empresa.setNome(nome);
                 empresa.setTelefone(telefone);
 
-                if(caminhoLogo != null){
+                if (caminhoLogo != null) {
                     salvarImagemFirebase();
-                }else{
+                } else {
                     empresa.salvar();
                     configSalvar(false);
                     Toast.makeText(this, "Dados salvos com sucesso", Toast.LENGTH_SHORT).show();
