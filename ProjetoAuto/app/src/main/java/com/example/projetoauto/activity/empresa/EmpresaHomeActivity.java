@@ -18,7 +18,7 @@ public class EmpresaHomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_empresa_home);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        NavController navController = Navigation.findNavController(this,R.id.nav_host_fragment);
+        NavController navController = Navigation.findNavController(this,R.id.nav_host_fragment_empresa);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
     }
 }

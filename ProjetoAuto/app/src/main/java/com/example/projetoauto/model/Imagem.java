@@ -1,9 +1,15 @@
 package com.example.projetoauto.model;
 
-public class Imagem {
+import java.io.Serializable;
+
+public class Imagem implements Serializable {
 
     private String caminhoimagem;
     private int index;
+
+    public Imagem() {
+    }
+
 
     public Imagem(String caminhoimagem, int index) {
         this.caminhoimagem = caminhoimagem;

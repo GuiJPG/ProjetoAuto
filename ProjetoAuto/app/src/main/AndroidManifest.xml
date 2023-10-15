@@ -18,10 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetoAuto"
         tools:targetApi="31">
+
         <!-- Telas de usuario -->
-        <activity
-            android:name=".activity.usuario.UsuarioHomeActivity"
-            android:theme="@style/Theme.ProjetoAuto1" />
+        <activity android:name=".activity.usuario.UsuarioHomeActivity" android:theme="@style/Theme.ProjetoAuto1" />
         <activity android:name=".activity.usuario.UsuarioFavoritosActivity" />
         <activity android:name=".activity.usuario.UsuarioPerfilActivity" />
         <!-- Telas de empresa -->
@@ -39,7 +38,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

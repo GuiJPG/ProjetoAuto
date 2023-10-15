@@ -3,16 +3,17 @@ package com.example.projetoauto.model;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.example.projetoauto.activity.MainActivity;
 import com.example.projetoauto.activity.empresa.EmpresaHomeActivity;
 import com.example.projetoauto.helper.FirebaseHelper;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ServerValue;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Automovel {
+public class Automovel implements Serializable {
 
     private String id;
     private String titulo;
@@ -36,14 +37,13 @@ public class Automovel {
     private Endereco endereco;
 
 
-
     public Automovel() {
         DatabaseReference automovelRef = FirebaseHelper.getDatabaseReference();
         this.setId(automovelRef.push().getKey());
     }
 
 
-    public void salvar(Activity activity, boolean novoAutomovel){
+    public void salvar(Activity activity, boolean novoAutomovel) {
         DatabaseReference automoveisPublicosRef = FirebaseHelper.getDatabaseReference()
                 .child("automoveis_publicos")
                 .child(this.getId());
@@ -55,7 +55,7 @@ public class Automovel {
                 .child(this.getId());
         meusAutomoveisRef.setValue(this);
 
-        if(novoAutomovel){
+        if (novoAutomovel) {
             DatabaseReference dataAutomovelPublico = automoveisPublicosRef
                     .child("dataPublicacao");
             dataAutomovelPublico.setValue(ServerValue.TIMESTAMP);
@@ -67,17 +67,33 @@ public class Automovel {
                 Intent intent = new Intent(activity, EmpresaHomeActivity.class);
                 activity.startActivity(intent);
             });
-        }else{
+        } else {
             activity.finish();
         }
 
     }
 
-    public void remover(){
+    public void remover() {
+        DatabaseReference automoveisPublicosRef = FirebaseHelper.getDatabaseReference()
+                .child("automoveis_publicos")
+                .child(this.getId());
+        automoveisPublicosRef.removeValue();
 
+        DatabaseReference meusAutomoveisRef = FirebaseHelper.getDatabaseReference()
+                .child("meus_automoveis")
+                .child(FirebaseHelper.getIdFirebase())
+                .child(this.getId());
+        meusAutomoveisRef.removeValue();
+
+        for (int i = 0; i < getUrlImagens().size(); i++) {
+            StorageReference storageReference = FirebaseHelper.getStorageReference()
+                    .child("imagens")
+                    .child("automoveis")
+                    .child(getId())
+                    .child("imagem" + i + ".jpeg");
+            storageReference.delete();
+        }
     }
-
-
 
 
     public String getId() {
@@ -179,7 +195,6 @@ public class Automovel {
     public String getIdEndereco() {
         return idEndereco;
     }
-
 
 
     public void setIdEndereco(String idEndereco) {

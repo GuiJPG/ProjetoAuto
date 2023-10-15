@@ -1,6 +1,6 @@
 package com.example.projetoauto.activity.empresa;
 
-import  androidx.annotation.NonNull;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.blackcat.currencyedittext.CurrencyEditText;
 import com.example.projetoauto.R;
 import com.example.projetoauto.helper.FirebaseHelper;
+import com.example.projetoauto.helper.Mascara;
 import com.example.projetoauto.model.Automovel;
 import com.example.projetoauto.model.Endereco;
 import com.example.projetoauto.model.Imagem;
@@ -42,6 +43,7 @@ import com.google.firebase.storage.UploadTask;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
 import com.santalu.maskara.widget.MaskEditText;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -92,9 +94,6 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
     private boolean novoAutomovel = true;
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,11 +102,10 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
         iniciaComponentes();
 
         Bundle bundle = getIntent().getExtras();
-        if(bundle != null){
+        if (bundle != null) {
 
             automovel = (Automovel) bundle.getSerializable("automovelSelecionado");
-
-            //configDados();
+            configDados();
         }
 
         configCliques();
@@ -115,8 +113,34 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
         recuperaEndereco();
     }
 
+    private void configDados() {
+        text_toolbar.setText("Editando anúncio");
 
-    private void configCliques(){
+        tipoSelecionado = automovel.getIdTipo();
+        btn_tipo.setText(tipoSelecionado);
+
+        edt_titulo.setText(automovel.getTitulo());
+        edt_descricao.setText(automovel.getDescricao());
+        //btn_tipo.setText(automovel.getIdTipo());
+        edt_placa.setText(automovel.getPlaca());
+        edt_modelo.setText(automovel.getModelo());
+        edt_ano.setText(automovel.getAno());
+        edt_quilometragem.setText(automovel.getQuilometragem());
+        edt_valor_comprado.setText(Mascara.getValor(automovel.getValorDeVenda()));
+        edt_valor_de_venda.setText(Mascara.getValor(automovel.getValorDeVenda()));
+
+        //Arrumar recuperação de endereço
+        btn_endereco.setText(automovel.getIdEndereco());
+
+        Picasso.get().load(automovel.getUrlImagens().get(0).getCaminhoimagem()).into(img0);
+        Picasso.get().load(automovel.getUrlImagens().get(1).getCaminhoimagem()).into(img1);
+        Picasso.get().load(automovel.getUrlImagens().get(2).getCaminhoimagem()).into(img2);
+
+        novoAutomovel = false;
+    }
+
+
+    private void configCliques() {
         findViewById(R.id.ib_voltar).setOnClickListener(v -> finish());
 
         img0.setOnClickListener(v -> showBottomDialog(0));
@@ -126,7 +150,7 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
 
 
     // Validar os campos do formulario
-    public void validaDados(View view){
+    public void validaDados(View view) {
 
         String titulo = edt_titulo.getText().toString().trim();
         String descricao = edt_descricao.getText().toString().trim();
@@ -138,18 +162,18 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
         double valorDeVenda = (double) edt_valor_de_venda.getRawValue() / 100;
         double valorComprado = (double) edt_valor_comprado.getRawValue() / 100;
 
-        if(!titulo.isEmpty()){
-            if(!descricao.isEmpty()){
-                if(!tipoSelecionado.isEmpty()){
-                    if(placa.length() == 7){
-                        if(!modelo.isEmpty()){
-                            if(ano.length() == 8){
-                                if(!quilometragem.isEmpty()){
-                                    if(valorDeVenda > 0){
-                                        if(valorComprado > 0){
-                                            if(!enderecoSelecionado.isEmpty()){
+        if (!titulo.isEmpty()) {
+            if (!descricao.isEmpty()) {
+                if (!tipoSelecionado.isEmpty()) {
+                    if (placa.length() == 7) {
+                        if (!modelo.isEmpty()) {
+                            if (ano.length() == 8) {
+                                if (!quilometragem.isEmpty()) {
+                                    if (valorDeVenda > 0) {
+                                        if (valorComprado > 0) {
+                                            if (!enderecoSelecionado.isEmpty()) {
 
-                                                if(automovel == null) automovel = new Automovel();
+                                                if (automovel == null) automovel = new Automovel();
                                                 automovel.setIdEmpresa(FirebaseHelper.getIdFirebase());
                                                 automovel.setTitulo(titulo);
                                                 automovel.setDescricao(descricao);
@@ -166,68 +190,68 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
 
                                                 automovel.setEndereco(endereco);
 
-                                               if(novoAutomovel){
-                                                    if(imagemList.size() == 3){
-                                                        for(int i = 0; i < imagemList.size(); i++){
-                                                           salvarImagemFirebase(imagemList.get(i), i);
+                                                if (novoAutomovel) {
+                                                    if (imagemList.size() == 3) {
+                                                        for (int i = 0; i < imagemList.size(); i++) {
+                                                            salvarImagemFirebase(imagemList.get(i), i);
                                                         }
-                                                    }else{
+                                                    } else {
                                                         Toast.makeText(this, "Selecione 3 Imagens", Toast.LENGTH_SHORT).show();
                                                     }
-                                                }else{
-                                                    if(imagemList.size() > 0){
-                                                        for(int i = 0; i < imagemList.size(); i++){
+                                                } else {
+                                                    if (imagemList.size() > 0) {
+                                                        for (int i = 0; i < imagemList.size(); i++) {
                                                             salvarImagemFirebase(imagemList.get(i), i);
                                                         }
 
-                                                    }else{
-                                                        automovel.salvar(this, novoAutomovel);
+                                                    } else {
+                                                        automovel.salvar(this, false);
                                                     }
 
                                                 }
 
-                                            }else{
+                                            } else {
                                                 btn_endereco.requestFocus();
                                                 ocultarTeclado();
                                                 erroSalvarEnderecoAutomovel();
                                             }
-                                        }else{
+                                        } else {
                                             edt_valor_comprado.requestFocus();
                                             edt_valor_comprado.setError("Informe um Valor que foi Comprado");
                                         }
 
-                                    }else{
+                                    } else {
                                         edt_valor_de_venda.requestFocus();
                                         edt_valor_de_venda.setError("Informe um Valor Para Venda");
                                     }
-                                }else{
+                                } else {
                                     edt_quilometragem.requestFocus();
                                     edt_quilometragem.setError("Informe a Quilometragem");
                                 }
-                            }else{
+                            } else {
                                 edt_ano.requestFocus();
                                 edt_ano.setError("Informe o Ano");
                             }
-                        }else{
+                        } else {
                             edt_modelo.requestFocus();
                             edt_modelo.setError("Informe o Modelo");
                         }
-                    }else{
+                    } else {
                         edt_placa.requestFocus();
                         edt_placa.setError("Informe a Placa");
                     }
 
-                }else{
+                } else {
                     btn_tipo.requestFocus();
                     ocultarTeclado();
                     erroSalvarTipoAutomovel();
                 }
 
-            }else{
+            } else {
                 edt_descricao.requestFocus();
                 edt_descricao.setError("Informe uma Descrição");
             }
-        }else{
+        } else {
             edt_titulo.requestFocus();
             edt_titulo.setError("Informe um Titulo");
         }
@@ -235,7 +259,7 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
 
     }
 
-    private void salvarImagemFirebase(Imagem imagem, int index){
+    private void salvarImagemFirebase(Imagem imagem, int index) {
         StorageReference storageReference = FirebaseHelper.getStorageReference()
                 .child("imagens")
                 .child("automoveis")
@@ -247,12 +271,12 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
 
             imagem.setCaminhoimagem(task.getResult().toString());
 
-            if(novoAutomovel){
+            if (novoAutomovel) {
                 automovel.getUrlImagens().add(imagem);
-            }else{
+            } else {
                 automovel.getUrlImagens().set(index, imagem);
             }
-            if(imagemList.size() == index + 1){
+            if (imagemList.size() == index + 1) {
                 automovel.salvar(this, novoAutomovel);
             }
 
@@ -272,7 +296,8 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-    private void erroSalvarEnderecoAutomovel(){
+
+    private void erroSalvarEnderecoAutomovel() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Atenção");
         builder.setMessage("Selecione o Endereço do Automovel");
@@ -286,27 +311,27 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
 
 
     //Validação das imagens
-    public void showBottomDialog(int requestCode){
+    public void showBottomDialog(int requestCode) {
         View modalbottomsheet = getLayoutInflater().inflate(R.layout.layout_bottom_sheet, null);
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this, R.style.BottomSheetDialog);
         bottomSheetDialog.setContentView(modalbottomsheet);
         bottomSheetDialog.show();
 
-        modalbottomsheet.findViewById(R.id.btn_camera).setOnClickListener(v ->{
+        modalbottomsheet.findViewById(R.id.btn_camera).setOnClickListener(v -> {
             bottomSheetDialog.dismiss();
             verificaPermissaoCamera(requestCode);
         });
-        modalbottomsheet.findViewById(R.id.btn_galeria).setOnClickListener(v ->{
+        modalbottomsheet.findViewById(R.id.btn_galeria).setOnClickListener(v -> {
             bottomSheetDialog.dismiss();
             verificaPermissaoGaleria(requestCode);
         });
-        modalbottomsheet.findViewById(R.id.btn_close).setOnClickListener(v ->{
+        modalbottomsheet.findViewById(R.id.btn_close).setOnClickListener(v -> {
             bottomSheetDialog.dismiss();
             Toast.makeText(this, "Fechando", Toast.LENGTH_SHORT).show();
         });
     }
 
-    private void verificaPermissaoCamera(int requestCode){
+    private void verificaPermissaoCamera(int requestCode) {
         PermissionListener permissionListener = new PermissionListener() {
             @Override
             public void onPermissionGranted() {
@@ -323,7 +348,7 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
 
     }
 
-    private void verificaPermissaoGaleria(int requestCode){
+    private void verificaPermissaoGaleria(int requestCode) {
         PermissionListener permissionListener = new PermissionListener() {
             @Override
             public void onPermissionGranted() {
@@ -339,7 +364,7 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
                 "Você negou as permissões para acessar a galeria do dispositivo, deseja permitir ?");
     }
 
-    private void showDialogPermissao(PermissionListener permissionListener, String[] permission, String msg){
+    private void showDialogPermissao(PermissionListener permissionListener, String[] permission, String msg) {
         TedPermission.create()
                 .setPermissionListener(permissionListener)
                 .setDeniedTitle("Permissão Negada")
@@ -355,7 +380,7 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
 
         int request = 0;
 
-        switch (requestCode){
+        switch (requestCode) {
             case 0:
                 request = 3;
                 break;
@@ -363,7 +388,7 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
                 request = 4;
                 break;
             case 2:
-                request =  5;
+                request = 5;
                 break;
         }
 
@@ -382,6 +407,7 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
             startActivityForResult(takePictureIntent, request);
         }
     }
+
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -397,25 +423,27 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
         currentPhotoPath = image.getAbsolutePath();
         return image;
     }
-    private void abrirGaleria(int requestCode){
+
+    private void abrirGaleria(int requestCode) {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, requestCode);
     }
 
 
-
     // Validar os tipos e o endereço
-    public void selecionarTipo(View view){
-        Intent intent= new Intent(this, EmpresaTipoAutomovelActivity.class);
+    public void selecionarTipo(View view) {
+        Intent intent = new Intent(this, EmpresaTipoAutomovelActivity.class);
         startActivityForResult(intent, REQUEST_TIPO);
     }
-    public void selecionarEndereco(View view){
+
+    public void selecionarEndereco(View view) {
         Intent intent = new Intent(this, EmpresaSelecionaEnderecoActivity.class);
         startActivityForResult(intent, REQUEST_ENDERECO);
 
     }
-    private void recuperaEndereco(){
-        if(FirebaseHelper.getAutenticado()){
+
+    private void recuperaEndereco() {
+        if (FirebaseHelper.getAutenticado()) {
             DatabaseReference enderecoRef = FirebaseHelper.getDatabaseReference()
                     .child("enderecos")
                     .child(FirebaseHelper.getIdFirebase());
@@ -423,12 +451,13 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
             enderecoRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.exists()){
-                        for(DataSnapshot ds : snapshot.getChildren()){
+                    if (snapshot.exists()) {
+                        for (DataSnapshot ds : snapshot.getChildren()) {
                             endereco = ds.getValue(Endereco.class);
                         }
                     }
                 }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
 
@@ -440,12 +469,11 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode == RESULT_OK){
+        if (resultCode == RESULT_OK) {
 
             Bitmap bitmap0;
             Bitmap bitmap1;
@@ -454,47 +482,47 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
             Uri imagemSelecionada = data.getData();
             String caminhoImagem;
 
-            if(requestCode == REQUEST_TIPO){
+            if (requestCode == REQUEST_TIPO) {
 
                 Tipo tipo = (Tipo) data.getSerializableExtra("tipoSelecionado");
                 tipoSelecionado = tipo.getNome();
                 btn_tipo.setText(tipoSelecionado);
 
 
-            }else if(requestCode == REQUEST_ENDERECO){
+            } else if (requestCode == REQUEST_ENDERECO) {
                 endereco = (Endereco) data.getSerializableExtra("enderecoSelecionado");
                 enderecoSelecionado = endereco.getLogradouro();
                 txt_endereco.setText(endereco.getBairro() + " " + endereco.getUf());
                 btn_endereco.setText(enderecoSelecionado);
 
-            }else if(requestCode <= 2){ //Galeria
+            } else if (requestCode <= 2) { //Galeria
 
-                try{
+                try {
                     caminhoImagem = imagemSelecionada.toString();
 
-                    switch (requestCode){
+                    switch (requestCode) {
                         case 0:
-                            if(Build.VERSION.SDK_INT < 28){
+                            if (Build.VERSION.SDK_INT < 28) {
                                 bitmap0 = MediaStore.Images.Media.getBitmap(getContentResolver(), imagemSelecionada);
-                            }else{
+                            } else {
                                 ImageDecoder.Source source = ImageDecoder.createSource(getContentResolver(), imagemSelecionada);
                                 bitmap0 = ImageDecoder.decodeBitmap(source);
                             }
                             img0.setImageBitmap(bitmap0);
                             break;
                         case 1:
-                            if(Build.VERSION.SDK_INT < 28){
+                            if (Build.VERSION.SDK_INT < 28) {
                                 bitmap1 = MediaStore.Images.Media.getBitmap(getContentResolver(), imagemSelecionada);
-                            }else{
+                            } else {
                                 ImageDecoder.Source source = ImageDecoder.createSource(getContentResolver(), imagemSelecionada);
                                 bitmap1 = ImageDecoder.decodeBitmap(source);
                             }
                             img1.setImageBitmap(bitmap1);
                             break;
                         case 2:
-                            if(Build.VERSION.SDK_INT < 28){
+                            if (Build.VERSION.SDK_INT < 28) {
                                 bitmap2 = MediaStore.Images.Media.getBitmap(getContentResolver(), imagemSelecionada);
-                            }else{
+                            } else {
                                 ImageDecoder.Source source = ImageDecoder.createSource(getContentResolver(), imagemSelecionada);
                                 bitmap2 = ImageDecoder.decodeBitmap(source);
                             }
@@ -505,17 +533,17 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
 
                     configUpload(requestCode, caminhoImagem);
 
-                }catch (IOException e){
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
 
-            }else{ //Camera
+            } else { //Camera
 
                 File file = new File(currentPhotoPath);
 
                 caminhoImagem = String.valueOf(file.toURI());
 
-                switch (requestCode){
+                switch (requestCode) {
                     case 3:
                         img0.setImageURI(Uri.fromFile(file));
                         break;
@@ -533,11 +561,11 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
         }
     }
 
-    private void configUpload(int requestCode, String caminhoImagem){
+    private void configUpload(int requestCode, String caminhoImagem) {
 
         int request = 0;
 
-        switch (requestCode){
+        switch (requestCode) {
             case 0:
             case 3:
                 request = 0;
@@ -548,31 +576,31 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
                 break;
             case 2:
             case 5:
-                request =  2;
+                request = 2;
                 break;
         }
         Imagem imagem = new Imagem(caminhoImagem, request);
-        if(imagemList.size() > 0){
+        if (imagemList.size() > 0) {
 
             boolean encontrou = false;
 
-            for (int i = 0; i <imagemList.size() ; i++) {
-                if(imagemList.get(i).getIndex() == request){
+            for (int i = 0; i < imagemList.size(); i++) {
+                if (imagemList.get(i).getIndex() == request) {
                     encontrou = true;
                 }
             }
-            if(encontrou){
+            if (encontrou) {
                 imagemList.set(request, imagem);
-            }else{
+            } else {
                 imagemList.add(imagem);
             }
 
-        }else{
+        } else {
             imagemList.add(imagem);
         }
     }
 
-    private void iniciaComponentes(){
+    private void iniciaComponentes() {
         text_toolbar = findViewById(R.id.text_toolbar);
         text_toolbar.setText("Novo Automovel");
 

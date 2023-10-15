@@ -5,7 +5,7 @@ import com.google.firebase.database.DatabaseReference;
 
 import java.io.Serializable;
 
-public class Login implements Serializable {
+public class Login implements Serializable{
     private String id;
     private String tipo;
     private boolean acesso;
