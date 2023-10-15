@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.projetoauto.model.Endereco;
 import com.example.projetoauto.R;
 
@@ -46,11 +47,11 @@ public class AdapterEndereco extends RecyclerView.Adapter<AdapterEndereco.MyView
         return enderecoList.size();
     }
 
-    public interface OnClickListener{
+    public interface OnClickListener {
         void OnClick(Endereco endereco);
     }
 
-    static class MyViewHolder extends RecyclerView.ViewHolder{
+    static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView text_logradouro, text_bairro;
 

@@ -1,7 +1,6 @@
 package com.example.projetoauto.helper;
 
 
-
 import static java.text.DateFormat.getDateInstance;
 
 import java.text.DateFormat;
@@ -16,12 +15,12 @@ import java.util.TimeZone;
 public class Mascara {
 
 
-    public static String getData(long dataPublicacao, int tipo){
+    public static String getData(long dataPublicacao, int tipo) {
 
-        final  int DIA_MES_ANO = 1;
-        final  int HORA_MINUTO = 2;
-        final  int DIA_MES_ANO_HORA_MINUTO = 3;
-        final  int DIA_MES = 4;
+        final int DIA_MES_ANO = 1;
+        final int HORA_MINUTO = 2;
+        final int DIA_MES_ANO_HORA_MINUTO = 3;
+        final int DIA_MES = 4;
 
         Locale locale = new Locale("PT", "br");
         String fuso = "America/Sao_Paulo";
@@ -52,8 +51,8 @@ public class Mascara {
         String mesC = mes.format(netDate);
         String anoC = ano.format(netDate);
 
-        if(tipo == 4){
-            switch (mesC){
+        if (tipo == 4) {
+            switch (mesC) {
                 case "01":
                     mesC = "Janeiro";
                     break;
@@ -94,7 +93,7 @@ public class Mascara {
         }
 
         String time;
-        switch (tipo){
+        switch (tipo) {
             case DIA_MES_ANO:
                 time = diaC + "/" + mesC + "/" + anoC;
                 break;
@@ -117,9 +116,7 @@ public class Mascara {
     }
 
 
-
-
-    public static String getValor(double valor){
+    public static String getValor(double valor) {
 
         NumberFormat nf = new DecimalFormat("#,##0.00", new DecimalFormatSymbols(
                 new Locale("PT", "br")));

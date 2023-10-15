@@ -27,7 +27,7 @@ public class EmpresaSelecionaEnderecoActivity extends AppCompatActivity implemen
     private AdapterSelecionaEndereco adapterSelecionaEndereco;
     private final List<Endereco> enderecoList = new ArrayList<>();
     private RecyclerView rv_enderecos;
-    private  Endereco endereco;
+    private Endereco endereco;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +45,14 @@ public class EmpresaSelecionaEnderecoActivity extends AppCompatActivity implemen
         recuperaEndereco();
     }
 
-    private void configRv(){
+    private void configRv() {
         rv_enderecos.setLayoutManager(new LinearLayoutManager(this));
         rv_enderecos.setHasFixedSize(true);
         adapterSelecionaEndereco = new AdapterSelecionaEndereco(enderecoList, this);
         rv_enderecos.setAdapter(adapterSelecionaEndereco);
     }
 
-    private void recuperaEndereco(){
+    private void recuperaEndereco() {
         DatabaseReference enderecoRef = FirebaseHelper.getDatabaseReference()
                 .child("enderecos")
                 .child(FirebaseHelper.getIdFirebase());
@@ -60,18 +60,19 @@ public class EmpresaSelecionaEnderecoActivity extends AppCompatActivity implemen
         enderecoRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
+                if (snapshot.exists()) {
                     enderecoList.clear();
-                    for(DataSnapshot ds : snapshot.getChildren()){
+                    for (DataSnapshot ds : snapshot.getChildren()) {
                         endereco = ds.getValue(Endereco.class);
                         enderecoList.add(endereco);
                     }
-                }else{
+                } else {
                 }
                 Collections.reverse(enderecoList);
                 adapterSelecionaEndereco.notifyDataSetChanged();
 
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -79,13 +80,13 @@ public class EmpresaSelecionaEnderecoActivity extends AppCompatActivity implemen
         });
     }
 
-    private void configCliques(){
+    private void configCliques() {
         findViewById(R.id.ib_voltar).setOnClickListener(v -> finish());
-        findViewById(R.id.ib_adicionar).setOnClickListener(v ->startActivity(new Intent(this, EmpresaFormEnderecoActivity.class)));
+        findViewById(R.id.ib_adicionar).setOnClickListener(v -> startActivity(new Intent(this, EmpresaFormEnderecoActivity.class)));
 
     }
 
-    private void iniciarComponentes(){
+    private void iniciarComponentes() {
         TextView text_toolbar = findViewById(R.id.text_toolbar);
         text_toolbar.setText("Meus Endereços");
         rv_enderecos = findViewById(R.id.rv_enderecos);

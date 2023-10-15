@@ -23,23 +23,23 @@ public class Endereco implements Serializable {
         setId(enderecoRef.push().getKey());
     }
 
-    public void salvar(Context context, ProgressBar progressBar){
+    public void salvar(Context context, ProgressBar progressBar) {
         DatabaseReference enderecoRef = FirebaseHelper.getDatabaseReference()
                 .child("enderecos")
                 .child(FirebaseHelper.getIdFirebase())
                 .child(getId());
 
         enderecoRef.setValue(this).addOnCompleteListener(task -> {
-            if (task.isSuccessful()){
+            if (task.isSuccessful()) {
                 Toast.makeText(context, "Endereço salvo com sucesso", Toast.LENGTH_SHORT).show();
-            }else{
+            } else {
                 Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
             }
             progressBar.setVisibility(View.GONE);
         });
     }
 
-    public void remover(){
+    public void remover() {
         DatabaseReference enderecoRef = FirebaseHelper.getDatabaseReference()
                 .child("enderecos")
                 .child(FirebaseHelper.getIdFirebase())

@@ -29,7 +29,6 @@ public class AdapterSelecionaEndereco extends RecyclerView.Adapter<AdapterSeleci
     }
 
 
-
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -51,7 +50,7 @@ public class AdapterSelecionaEndereco extends RecyclerView.Adapter<AdapterSeleci
 
         holder.text_endereco.setText(enderecoCompleto);
 
-        if(lastSelectPosition == position){
+        if (lastSelectPosition == position) {
             holder.radioButton.setChecked(true);
         }
 
@@ -70,11 +69,11 @@ public class AdapterSelecionaEndereco extends RecyclerView.Adapter<AdapterSeleci
         return enderecoList.size();
     }
 
-    public interface OnClickListener{
+    public interface OnClickListener {
         void OnClick(Endereco endereco);
     }
 
-    static class MyViewHolder extends RecyclerView.ViewHolder{
+    static class MyViewHolder extends RecyclerView.ViewHolder {
 
         RadioButton radioButton;
         TextView text_logradouro, text_endereco;

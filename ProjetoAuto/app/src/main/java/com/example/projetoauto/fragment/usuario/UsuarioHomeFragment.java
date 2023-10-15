@@ -2,65 +2,115 @@ package com.example.projetoauto.fragment.usuario;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.projetoauto.R;
+import com.example.projetoauto.adapter.AdapterListaAutomovel;
+import com.example.projetoauto.helper.FirebaseHelper;
+import com.example.projetoauto.model.Automovel;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+import com.tsuryo.swipeablerv.SwipeLeftRightCallback;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link UsuarioHomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class UsuarioHomeFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class UsuarioHomeFragment extends Fragment implements AdapterListaAutomovel.OnclickListener {
 
-    public UsuarioHomeFragment() {
-        // Required empty public constructor
-    }
+    private AdapterListaAutomovel adapterListaAutomovel;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment UsuarioHomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static UsuarioHomeFragment newInstance(String param1, String param2) {
-        UsuarioHomeFragment fragment = new UsuarioHomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private final List<Automovel> automovelList = new ArrayList<>();
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private TextView text_info;
+
+    private ProgressBar progressBar;
+
+    private RecyclerView rv_automoveis;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_usuario_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_usuario_home, container, false);
+
+        iniciarComponentes(view);
+
+        configRV();
+
+        return view;
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        recuperaAutomoveis();
+    }
+
+    private void recuperaAutomoveis() {
+        DatabaseReference automoveisRef = FirebaseHelper.getDatabaseReference()
+                .child("automoveis_publicos");
+
+        automoveisRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    automovelList.clear();
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        Automovel automovel = ds.getValue(Automovel.class);
+                        automovelList.add(automovel);
+
+                    }
+                    text_info.setText("");
+                    Collections.reverse(automovelList);
+                    adapterListaAutomovel.notifyDataSetChanged();
+                    progressBar.setVisibility(View.GONE);
+                } else {
+                    text_info.setText("Nenhum Automovel Cadastrado");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void configRV() {
+        rv_automoveis.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rv_automoveis.setHasFixedSize(true);
+        adapterListaAutomovel = new AdapterListaAutomovel(automovelList, this);
+        rv_automoveis.setAdapter(adapterListaAutomovel);
+    }
+
+    private void iniciarComponentes(View view) {
+        rv_automoveis = view.findViewById(R.id.rv_automoveis);
+        progressBar = view.findViewById(R.id.progressBar);
+        text_info = view.findViewById(R.id.text_info);
+
+        //view.findViewById(R.id.ib_voltar).setOnClickListener(v -> requireActivity().finish());
+
+
+    }
+
+    @Override
+    public void OnClick(Automovel automovel) {
+        Toast.makeText(requireContext(), automovel.getTitulo(), Toast.LENGTH_SHORT).show();
     }
 }

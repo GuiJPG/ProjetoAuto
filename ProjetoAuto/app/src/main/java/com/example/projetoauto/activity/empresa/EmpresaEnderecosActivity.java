@@ -33,7 +33,7 @@ public class EmpresaEnderecosActivity extends AppCompatActivity implements Adapt
 
     private SwipeableRecyclerView rv_enderecos;
 
-    private  Endereco endereco;
+    private Endereco endereco;
 
     private TextView text_toolbar;
 
@@ -52,7 +52,8 @@ public class EmpresaEnderecosActivity extends AppCompatActivity implements Adapt
         super.onStart();
         recuperaEndereco();
     }
-    private void recuperaEndereco(){
+
+    private void recuperaEndereco() {
         DatabaseReference enderecoRef = FirebaseHelper.getDatabaseReference()
                 .child("enderecos")
                 .child(FirebaseHelper.getIdFirebase());
@@ -60,21 +61,22 @@ public class EmpresaEnderecosActivity extends AppCompatActivity implements Adapt
         enderecoRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
+                if (snapshot.exists()) {
                     enderecoList.clear();
-                    for(DataSnapshot ds : snapshot.getChildren()){
+                    for (DataSnapshot ds : snapshot.getChildren()) {
                         endereco = ds.getValue(Endereco.class);
                         enderecoList.add(endereco);
                     }
                     //Verificar Erro do text_info
                     //text_info.setText("");
-                }else{
+                } else {
                     //text_info.setText("Nenhum Endereço Cadastrado");
                 }
                 Collections.reverse(enderecoList);
                 adapterEndereco.notifyDataSetChanged();
 
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -82,13 +84,13 @@ public class EmpresaEnderecosActivity extends AppCompatActivity implements Adapt
         });
     }
 
-    private void configCliques(){
+    private void configCliques() {
         findViewById(R.id.ib_voltar).setOnClickListener(v -> finish());
-        findViewById(R.id.ib_adicionar).setOnClickListener(v ->startActivity(new Intent(this, EmpresaFormEnderecoActivity.class)));
+        findViewById(R.id.ib_adicionar).setOnClickListener(v -> startActivity(new Intent(this, EmpresaFormEnderecoActivity.class)));
 
     }
 
-    private void configRv(){
+    private void configRv() {
         rv_enderecos.setLayoutManager(new LinearLayoutManager(this));
         rv_enderecos.setHasFixedSize(true);
         adapterEndereco = new AdapterEndereco(enderecoList, this);
@@ -106,19 +108,19 @@ public class EmpresaEnderecosActivity extends AppCompatActivity implements Adapt
         });
     }
 
-    private void dialogRemoverEndereco(Endereco endereco){
+    private void dialogRemoverEndereco(Endereco endereco) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Remover endereço");
         builder.setMessage("Deseja remover o endereço selecionado?");
-        builder.setNegativeButton("Não",((dialog, which) ->{
+        builder.setNegativeButton("Não", ((dialog, which) -> {
             dialog.dismiss();
             adapterEndereco.notifyDataSetChanged();
         }));
-        builder.setPositiveButton("Sim",((dialog, which)->{
+        builder.setPositiveButton("Sim", ((dialog, which) -> {
             endereco.remover();
             enderecoList.remove(endereco);
 
-            if(enderecoList.isEmpty()){
+            if (enderecoList.isEmpty()) {
                 //text_info.setText("Nenhum endereço cadastrado");
             }
             adapterEndereco.notifyDataSetChanged();
@@ -129,7 +131,7 @@ public class EmpresaEnderecosActivity extends AppCompatActivity implements Adapt
     }
 
 
-    private void iniciarComponentes(){
+    private void iniciarComponentes() {
         text_toolbar = findViewById(R.id.text_toolbar);
         text_toolbar.setText("Endereços");
 

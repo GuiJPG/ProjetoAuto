@@ -40,7 +40,6 @@ public class EmpresaFormEnderecoActivity extends AppCompatActivity {
     private boolean novoEndereco = true;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,14 +50,14 @@ public class EmpresaFormEnderecoActivity extends AppCompatActivity {
         iniciaRetrofit();
 
         Bundle bundle = getIntent().getExtras();
-        if(bundle != null){
+        if (bundle != null) {
             endereco = (Endereco) bundle.getSerializable("enderecoSelecionado");
             configDados();
         }
         configCliques();
     }
 
-    private void iniciaRetrofit(){
+    private void iniciaRetrofit() {
         retrofit = new Retrofit
                 .Builder()
                 .baseUrl("https://viacep.com.br/ws/")
@@ -66,16 +65,16 @@ public class EmpresaFormEnderecoActivity extends AppCompatActivity {
                 .build();
     }
 
-    private void configCliques(){
+    private void configCliques() {
         findViewById(R.id.ib_voltar).setOnClickListener(v -> finish());
         findViewById(R.id.ib_buscarCep).setOnClickListener(v -> buscarCEP());
     }
 
-    private void buscarCEP(){
+    private void buscarCEP() {
 
-        String cep = edt_cep.getMasked().replaceAll("_", "").replace("-","");
+        String cep = edt_cep.getMasked().replaceAll("_", "").replace("-", "");
 
-        if(cep.length() == 8){
+        if (cep.length() == 8) {
 
             ocultarTeclado();
 
@@ -88,17 +87,17 @@ public class EmpresaFormEnderecoActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(@NonNull Call<Endereco> call, @NonNull Response<Endereco> response) {
 
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         endereco = response.body();
-                        if(endereco != null){
-                            if(endereco.getLogradouro() != null){
+                        if (endereco != null) {
+                            if (endereco.getLogradouro() != null) {
 
                                 configDados();
 
-                            }else{
+                            } else {
                                 Toast.makeText(EmpresaFormEnderecoActivity.this, "Não foi possivel recuperar o endereço", Toast.LENGTH_SHORT).show();
                             }
-                        }else{
+                        } else {
                             Toast.makeText(EmpresaFormEnderecoActivity.this, "Não foi possivel recuperar o endereço", Toast.LENGTH_SHORT).show();
                         }
 
@@ -114,12 +113,12 @@ public class EmpresaFormEnderecoActivity extends AppCompatActivity {
                 }
             });
 
-        }else{
+        } else {
             Toast.makeText(this, "Formato Invalido", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void configDados(){
+    private void configDados() {
 
         edt_cep.setText(endereco.getCep());
         edt_uf.setText(endereco.getUf());
@@ -129,62 +128,62 @@ public class EmpresaFormEnderecoActivity extends AppCompatActivity {
         novoEndereco = false;
     }
 
-    public void validarDados(View view){
+    public void validarDados(View view) {
         String cep = edt_cep.getMasked().trim();
         String uf = edt_uf.getText().toString().trim();
         String logradouro = edt_logradouro.getText().toString().trim();
         String bairro = edt_bairro.getText().toString().trim();
 
-        if(!cep.isEmpty()){
-            if(!uf.isEmpty()){
-                if(!logradouro.isEmpty()){
-                    if(!bairro.isEmpty()){
+        if (!cep.isEmpty()) {
+            if (!uf.isEmpty()) {
+                if (!logradouro.isEmpty()) {
+                    if (!bairro.isEmpty()) {
 
                         progressBar.setVisibility(View.VISIBLE);
 
 
-                        if(endereco == null) endereco  = new Endereco();
+                        if (endereco == null) endereco = new Endereco();
                         endereco.setCep(cep);
                         endereco.setUf(uf);
                         endereco.setLogradouro(logradouro);
                         endereco.setBairro(bairro);
                         endereco.salvar(getBaseContext(), progressBar);
 
-                        if(novoEndereco){
+                        if (novoEndereco) {
                             finish();
-                        }else{
+                        } else {
                             ocultarTeclado();
                         }
 
 
-                    }else{
+                    } else {
                         edt_bairro.requestFocus();
                         edt_bairro.setError("Preencha o Bairro");
                     }
 
-                }else{
+                } else {
                     edt_logradouro.requestFocus();
                     edt_logradouro.setError("Preencha o Município");
                 }
 
-            }else{
+            } else {
                 edt_uf.requestFocus();
                 edt_uf.setError("Preencha sua UF");
             }
 
-        }else{
+        } else {
             edt_cep.requestFocus();
             edt_cep.setError("Preencha seu CEP");
         }
     }
 
-    private void ocultarTeclado(){
+    private void ocultarTeclado() {
         ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
-                ib_salvar.getWindowToken(),0
+                ib_salvar.getWindowToken(), 0
         );
     }
 
-    private void iniciarComponentes(){
+    private void iniciarComponentes() {
         TextView text_toolbar = findViewById(R.id.text_toolbar);
         text_toolbar.setText("Endereço");
 

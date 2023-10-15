@@ -60,11 +60,11 @@ public class AdapterListaAutomovel extends RecyclerView.Adapter<AdapterListaAuto
         return automoveisList.size();
     }
 
-    public interface OnclickListener{
+    public interface OnclickListener {
         void OnClick(Automovel automovel);
     }
 
-    static class MyViewHolder extends RecyclerView.ViewHolder{
+    static class MyViewHolder extends RecyclerView.ViewHolder {
 
         ImageView img_automovel;
         TextView text_titulo;

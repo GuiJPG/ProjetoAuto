@@ -52,26 +52,26 @@ public class EmpresaPerfilFragment extends Fragment {
 
     }
 
-    private void configAcesso(){
+    private void configAcesso() {
         Picasso.get().load(FirebaseHelper.getAuth().getCurrentUser().getPhotoUrl()).into(img_logo);
         text_empresa.setText(FirebaseHelper.getAuth().getCurrentUser().getDisplayName());
     }
 
-    private void configCliques(){
+    private void configCliques() {
         menu_perfil_empresa.setOnClickListener(v -> startActivity(new Intent(requireActivity(), EmpresaPerfilActivity.class)));
         menu_enderecos.setOnClickListener(v -> startActivity(new Intent(requireActivity(), EmpresaEnderecosActivity.class)));
         menu_deslogar.setOnClickListener(v -> deslogar());
 
     }
 
-    private void deslogar(){
+    private void deslogar() {
         FirebaseHelper.getAuth().signOut();
         requireActivity().finish();
         startActivity(new Intent(requireActivity(), UsuarioHomeActivity.class));
     }
 
 
-    private void iniciaComponentes(View view){
+    private void iniciaComponentes(View view) {
 
         img_logo = view.findViewById(R.id.img_logo);
         text_empresa = view.findViewById(R.id.text_empresa);

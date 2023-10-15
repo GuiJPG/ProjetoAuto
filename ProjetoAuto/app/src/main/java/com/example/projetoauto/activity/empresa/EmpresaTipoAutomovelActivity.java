@@ -16,7 +16,7 @@ import com.example.projetoauto.model.Tipo;
 public class EmpresaTipoAutomovelActivity extends AppCompatActivity implements AdapterTipo.OnClickListener {
 
     private RecyclerView rv_tipo;
-   private AdapterTipo adapterTipo;
+    private AdapterTipo adapterTipo;
 
 
     @Override
@@ -32,7 +32,7 @@ public class EmpresaTipoAutomovelActivity extends AppCompatActivity implements A
         iniciaRv();
     }
 
-    private void iniciaRv(){
+    private void iniciaRv() {
         rv_tipo.setLayoutManager(new LinearLayoutManager(this));
         rv_tipo.setHasFixedSize(true);
         adapterTipo = new AdapterTipo(TipoList.getList(false), this);
@@ -40,11 +40,11 @@ public class EmpresaTipoAutomovelActivity extends AppCompatActivity implements A
 
     }
 
-    private void configCliques(){
+    private void configCliques() {
         findViewById(R.id.ib_voltar).setOnClickListener(v -> finish());
     }
 
-    private void iniciarComponentes(){
+    private void iniciarComponentes() {
         TextView text_toolbar = findViewById(R.id.text_toolbar);
         text_toolbar.setText("Tipos Automoveis");
 
