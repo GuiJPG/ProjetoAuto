@@ -19,18 +19,24 @@
         android:theme="@style/Theme.ProjetoAuto"
         tools:targetApi="31">
 
+
         <!-- Telas de usuario -->
         <activity
             android:name=".activity.usuario.UsuarioHomeActivity"
             android:exported="true"
             android:theme="@style/Theme.ProjetoAuto1">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
         <activity android:name=".activity.usuario.UsuarioFavoritosActivity" />
         <activity android:name=".activity.usuario.UsuarioPerfilActivity" />
+        <activity android:name=".activity.usuario.DetalheAutomovelUActivity"/>
         <!-- Telas de empresa -->
         <activity android:name=".activity.empresa.EmpresaHomeActivity" />
         <activity android:name=".activity.empresa.EmpresaFinalizaCadastroActivity" />
@@ -43,9 +49,9 @@
         <!-- Telas de Autenticação -->
         <activity android:name=".auth.LoginActivity" />
         <activity android:name=".auth.CriarContaActivity" />
-        <activity android:name=".auth.RecuperaContaActivity" /> <!-- Telas de MainActivity -->
+        <activity android:name=".auth.RecuperaContaActivity" />
+        <!-- Telas de MainActivity -->
         <activity android:name=".activity.MainActivity" />
-
         <!-- Provedor do app para acesso a camera -->
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -56,7 +62,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
     </application>
 
 </manifest>

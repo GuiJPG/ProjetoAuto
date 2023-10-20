@@ -8,4 +8,8 @@
     <string name="menu_financeiro">Financeiro</string>
     <string name="menu_conta">Conta</string>
     <string name="menu_agenda">Agenda</string>
+
+    <string name="valor_automovel">R$ %1$s</string>
+    <string name="data_publicacao">Publicado %1$s</string>
+
 </resources>

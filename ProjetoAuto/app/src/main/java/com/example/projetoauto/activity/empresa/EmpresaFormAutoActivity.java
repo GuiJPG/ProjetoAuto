@@ -130,7 +130,7 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
         edt_valor_de_venda.setText(Mascara.getValor(automovel.getValorDeVenda()));
 
         //Arrumar recuperação de endereço
-        btn_endereco.setText(automovel.getIdEndereco());
+        btn_endereco.setText(automovel.getEndereco().getLogradouro());
 
         Picasso.get().load(automovel.getUrlImagens().get(0).getCaminhoimagem()).into(img0);
         Picasso.get().load(automovel.getUrlImagens().get(1).getCaminhoimagem()).into(img1);

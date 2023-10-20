@@ -101,7 +101,7 @@ public class Mascara {
                 time = horaC + ":" + minutoC;
                 break;
             case DIA_MES_ANO_HORA_MINUTO:
-                time = diaC + "/" + mesC + "/" + anoC + "," + horaC + ":" + minutoC;
+                time = diaC + "/" + mesC + "/" + anoC + " às " + horaC + ":" + minutoC;
                 break;
             case DIA_MES:
                 time = diaC + " " + mesC;

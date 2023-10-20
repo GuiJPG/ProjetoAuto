@@ -74,7 +74,8 @@ dependencies {
     //Mascara de preço https://github.com/BlacKCaT27/CurrencyEditText
     implementation 'com.github.BlacKCaT27:CurrencyEditText:2.0.2'
 
-
+    // https://github.com/smarteist/Android-Image-Slider
+    implementation 'com.github.smarteist:autoimageslider:1.4.0'
 
 
 }

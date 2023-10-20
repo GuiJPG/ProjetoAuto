@@ -1,5 +1,6 @@
 package com.example.projetoauto.fragment.usuario;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.projetoauto.R;
+import com.example.projetoauto.activity.usuario.DetalheAutomovelUActivity;
 import com.example.projetoauto.adapter.AdapterListaAutomovel;
 import com.example.projetoauto.helper.FirebaseHelper;
 import com.example.projetoauto.model.Automovel;
@@ -111,6 +113,8 @@ public class UsuarioHomeFragment extends Fragment implements AdapterListaAutomov
 
     @Override
     public void OnClick(Automovel automovel) {
-        Toast.makeText(requireContext(), automovel.getTitulo(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(requireContext(), DetalheAutomovelUActivity.class);
+        intent.putExtra("automovelSelecionado",automovel);
+        startActivity(intent);
     }
 }

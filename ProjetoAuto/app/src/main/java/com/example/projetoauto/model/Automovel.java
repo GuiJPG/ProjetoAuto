@@ -36,6 +36,8 @@ public class Automovel implements Serializable {
 
     private Endereco endereco;
 
+    private Empresa empresa;
+
 
     public Automovel() {
         DatabaseReference automovelRef = FirebaseHelper.getDatabaseReference();
@@ -188,13 +190,14 @@ public class Automovel implements Serializable {
         return urlImagens;
     }
 
-    /*public void setUrlImagens(List<String> urlImagens) {
+    /*public void setUrlImagens(List<Imagem> urlImagens) {
         this.urlImagens = urlImagens;
-    }*/
+    }
 
     public String getIdEndereco() {
         return idEndereco;
-    }
+    } */
+
 
 
     public void setIdEndereco(String idEndereco) {
@@ -207,6 +210,14 @@ public class Automovel implements Serializable {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
 
     public long getDataPublicacao() {
