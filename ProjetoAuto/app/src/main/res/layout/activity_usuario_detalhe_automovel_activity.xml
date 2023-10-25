@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.usuario.DetalheAutomovelUActivity">
+    tools:context=".activity.usuario.UsuarioDetalheAutomovelActivity">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -41,19 +41,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/ib_favorito"
-            android:layout_width="wrap_content"
+        <com.like.LikeButton
+            android:id="@+id/like_button"
+            android:layout_width="35dp"
             android:layout_height="match_parent"
-            android:background="@color/blue_dark"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:src="@drawable/ic_favorito_off"
+            app:icon_size="25dp"
+            app:icon_type="heart"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/ib_agenda"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:tint="@android:color/white" />
+            app:like_drawable="@drawable/like_button_on"
+            app:unlike_drawable="@drawable/like_button_off" />
 
 
         <ImageButton
@@ -62,7 +60,7 @@
             android:layout_height="match_parent"
             android:background="@color/blue_dark"
             android:paddingStart="16dp"
-            android:paddingEnd="8dp"
+            android:paddingEnd="16dp"
             android:src="@drawable/ic_calendario_off"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

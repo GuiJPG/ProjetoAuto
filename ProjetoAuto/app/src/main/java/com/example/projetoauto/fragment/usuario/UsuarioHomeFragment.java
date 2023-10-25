@@ -13,10 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.projetoauto.R;
-import com.example.projetoauto.activity.usuario.DetalheAutomovelUActivity;
+import com.example.projetoauto.activity.usuario.UsuarioDetalheAutomovelActivity;
 import com.example.projetoauto.adapter.AdapterListaAutomovel;
 import com.example.projetoauto.helper.FirebaseHelper;
 import com.example.projetoauto.model.Automovel;
@@ -24,7 +23,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-import com.tsuryo.swipeablerv.SwipeLeftRightCallback;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -113,7 +111,7 @@ public class UsuarioHomeFragment extends Fragment implements AdapterListaAutomov
 
     @Override
     public void OnClick(Automovel automovel) {
-        Intent intent = new Intent(requireContext(), DetalheAutomovelUActivity.class);
+        Intent intent = new Intent(requireContext(), UsuarioDetalheAutomovelActivity.class);
         intent.putExtra("automovelSelecionado",automovel);
         startActivity(intent);
     }

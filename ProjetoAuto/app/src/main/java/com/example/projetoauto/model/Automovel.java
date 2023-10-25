@@ -27,7 +27,6 @@ public class Automovel implements Serializable {
 
     private String idEmpresa;
     private String idTipo;
-
     private String idEndereco;
 
     private long dataPublicacao;
@@ -176,6 +175,10 @@ public class Automovel implements Serializable {
 
     public void setIdEmpresa(String idEmpresa) {
         this.idEmpresa = idEmpresa;
+    }
+
+    public String getIdEndereco() {
+        return idEndereco;
     }
 
     public String getIdTipo() {

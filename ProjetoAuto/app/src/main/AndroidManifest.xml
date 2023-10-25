@@ -36,7 +36,7 @@
 
         <activity android:name=".activity.usuario.UsuarioFavoritosActivity" />
         <activity android:name=".activity.usuario.UsuarioPerfilActivity" />
-        <activity android:name=".activity.usuario.DetalheAutomovelUActivity"/>
+        <activity android:name=".activity.usuario.UsuarioDetalheAutomovelActivity"/>
         <!-- Telas de empresa -->
         <activity android:name=".activity.empresa.EmpresaHomeActivity" />
         <activity android:name=".activity.empresa.EmpresaFinalizaCadastroActivity" />
