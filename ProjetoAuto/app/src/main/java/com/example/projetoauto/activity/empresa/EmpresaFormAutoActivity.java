@@ -74,6 +74,8 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
     private EditText edt_modelo;
     private MaskEditText edt_ano;
 
+    private Button btn_salvar;
+
     private EditText edt_quilometragem;
 
     private CurrencyEditText edt_valor_de_venda;
@@ -205,6 +207,7 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
                                                         }
 
                                                     } else {
+                                                        btn_salvar.setText("Aguarde...");
                                                         automovel.salvar(this, false);
                                                     }
 
@@ -260,6 +263,9 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
     }
 
     private void salvarImagemFirebase(Imagem imagem, int index) {
+
+        btn_salvar.setText("Aguarde...");
+
         StorageReference storageReference = FirebaseHelper.getStorageReference()
                 .child("imagens")
                 .child("automoveis")
@@ -613,6 +619,7 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
         edt_quilometragem = findViewById(R.id.edt_quilometragem);
         btn_endereco = findViewById(R.id.btn_endereco);
         txt_endereco = findViewById(R.id.txt_endereco);
+        btn_salvar = findViewById(R.id.btn_salvar);
 
         edt_valor_de_venda = findViewById(R.id.edt_valor_de_venda);
         edt_valor_de_venda.setLocale(new Locale("PT", "br"));

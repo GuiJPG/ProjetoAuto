@@ -86,6 +86,7 @@ public class UsuarioFavoritosActivity extends AppCompatActivity implements Adapt
                         recuperaAutomoveis();
                     } else {
                         text_info.setText("Nenhum Automovel Favoritado");
+                        progressBar.setVisibility(View.GONE);
                         adapterListaAutomovel.notifyDataSetChanged();
                     }
 
@@ -115,6 +116,7 @@ public class UsuarioFavoritosActivity extends AppCompatActivity implements Adapt
                         Collections.reverse(automovelList);
                         adapterListaAutomovel.notifyDataSetChanged();
                         progressBar.setVisibility(View.GONE);
+
                     }
 
                 }

@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
+import com.santalu.maskara.widget.MaskEditText;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -200,7 +201,7 @@ public class UsuarioDetalheAutomovelActivity extends AppCompatActivity {
         txt_descricao.setText(automovel.getDescricao());
         txt_modelo.setText("Modelo: " + automovel.getModelo());
         txt_tipo.setText("Tipo: " + automovel.getIdTipo());
-        txt_ano.setText("Ano" + automovel.getAno());
+        txt_ano.setText("Ano: " + automovel.getAno());
         txt_quilometragem.setText("KM: " + automovel.getQuilometragem());
         txt_cep.setText(automovel.getEndereco().getCep());
         txt_logradouro.setText(automovel.getEndereco().getLogradouro());

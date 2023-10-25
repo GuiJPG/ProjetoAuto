@@ -88,6 +88,7 @@ public class EmpresaHomeFragment extends Fragment implements AdapterListaAutomov
                         progressBar.setVisibility(View.GONE);
                     } else {
                         text_info.setText("Nenhum Automovel Cadastrado");
+                        progressBar.setVisibility(View.GONE);
                     }
                 }
 
