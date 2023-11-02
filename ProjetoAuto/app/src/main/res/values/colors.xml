@@ -10,4 +10,13 @@
     <color name="blue_dark">#00399a</color>
     <color name="blue">#2262cc</color>
     <color name="red">#FF0000</color>
+    <color name="green">#dcf8c6</color>
+    <color name="light_blue">#34b7f1</color>
+    <color name="fundoChat">#ece5dd</color>
+
+    <color name="cor_hint">#4E5457</color>
+
+    <color name="menu_toolbar">#8A9399</color>
+
+
 </resources>

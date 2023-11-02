@@ -134,7 +134,6 @@ public class EmpresaEnderecosActivity extends AppCompatActivity implements Adapt
     private void iniciarComponentes() {
         text_toolbar = findViewById(R.id.text_toolbar);
         text_toolbar.setText("Endereços");
-
         rv_enderecos = findViewById(R.id.rv_enderecos);
     }
 

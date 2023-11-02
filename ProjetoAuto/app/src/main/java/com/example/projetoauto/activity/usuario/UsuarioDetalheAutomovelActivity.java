@@ -7,7 +7,9 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.projetoauto.R;
 import com.example.projetoauto.adapter.SliderAdapter;
@@ -18,13 +20,13 @@ import com.example.projetoauto.model.Automovel;
 
 import com.example.projetoauto.model.Favorito;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
-import com.santalu.maskara.widget.MaskEditText;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -33,9 +35,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class UsuarioDetalheAutomovelActivity extends AppCompatActivity {
+public class UsuarioDetalheAutomovelActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView txt_nome_empresa;
+    private TextView txt_toolbar;
     private SliderView sliderView;
     private TextView txt_titulo_auto;
     private TextView txt_valor_venda;
@@ -52,6 +54,7 @@ public class UsuarioDetalheAutomovelActivity extends AppCompatActivity {
     private LikeButton like_Button;
 
     private Automovel automovel;
+
     private final List<String> favoritosList = new ArrayList<>();
 
     @Override
@@ -63,6 +66,7 @@ public class UsuarioDetalheAutomovelActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
+
             automovel = (Automovel) bundle.getSerializable("automovelSelecionado");
 
             configDados();
@@ -172,18 +176,9 @@ public class UsuarioDetalheAutomovelActivity extends AppCompatActivity {
 
     private void configCliques() {
         findViewById(R.id.ib_voltar).setOnClickListener(v -> finish());
-        findViewById(R.id.btn_chat).setOnClickListener(v -> abrirChat());
-    }
-
-    public void abrirChat() {
-        if (FirebaseHelper.getAutenticado()) {
-
-            // Criar codigo para abrir o chat
-
-        } else {
-            startActivity(new Intent(this, LoginActivity.class));
-
-        }
+        findViewById(R.id.ib_numero).setOnClickListener(this);
+        findViewById(R.id.ib_agenda).setOnClickListener(this);
+        findViewById(R.id.ib_localizacao).setOnClickListener(this);
     }
 
     private void configDados() {
@@ -194,7 +189,7 @@ public class UsuarioDetalheAutomovelActivity extends AppCompatActivity {
         sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
         sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
 
-        //txt_nome_empresa.setText(automovel.getEmpresa().getNome());
+        txt_toolbar.setText("Detalhes");
         txt_titulo_auto.setText(automovel.getTitulo());
         txt_valor_venda.setText(getString(R.string.valor_automovel, Mascara.getValor(automovel.getValorDeVenda())));
         txt_data_publicado.setText(getString(R.string.data_publicacao, Mascara.getData(automovel.getDataPublicacao(), 3)));
@@ -210,7 +205,7 @@ public class UsuarioDetalheAutomovelActivity extends AppCompatActivity {
     }
 
     private void iniciaComponentes() {
-        txt_nome_empresa = findViewById(R.id.txt_nome_empresa);
+        txt_toolbar = findViewById(R.id.txt_toolbar);
         sliderView = findViewById(R.id.sliderView);
         txt_titulo_auto = findViewById(R.id.txt_titulo_auto);
         txt_valor_venda = findViewById(R.id.txt_valor_venda);
@@ -227,5 +222,35 @@ public class UsuarioDetalheAutomovelActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onClick(View view) {
+
+        if (FirebaseHelper.getAutenticado()) {
+
+            switch (view.getId()) {
+
+                case R.id.ib_numero:
+                    Toast.makeText(this, "Numero de Telefone", Toast.LENGTH_SHORT).show();
+
+                    break;
+
+                case R.id.ib_agenda:
+                    Intent intent = new Intent(this, UsuarioCalendarioActivity.class);
+                    startActivity(intent);
+                    //Toast.makeText(this, "Acessar Agenda", Toast.LENGTH_SHORT).show();
+
+                    break;
+
+                case R.id.ib_localizacao:
+                    Toast.makeText(this, "Acessar Localização", Toast.LENGTH_SHORT).show();
+
+                    break;
+            }
+
+        } else {
+            alertAutenticacao("Você não esta autenticado.");
+        }
+
+    }
 }
 

@@ -30,7 +30,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/txt_nome_empresa"
+            android:id="@+id/txt_toolbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Empresa"
@@ -45,6 +45,8 @@
             android:id="@+id/like_button"
             android:layout_width="35dp"
             android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             app:icon_size="25dp"
             app:icon_type="heart"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -59,14 +61,27 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@color/blue_dark"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:src="@drawable/ic_calendario_off"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ib_localizacao"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@android:color/white" />
+
+        <ImageButton
+            android:id="@+id/ib_localizacao"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/blue_dark"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:src="@drawable/ic_localizacao"
+            app:tint="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:tint="@android:color/white" />
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -169,6 +184,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView"
                 android:text="Descrição" />
+
             <TextView
                 android:id="@+id/txt_descricao"
                 android:layout_width="0dp"
@@ -340,6 +356,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/txt_logradouro"
                 tools:text="Guara" />
 
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
@@ -355,18 +372,18 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints">
 
-
-        <android.widget.Button
-            android:id="@+id/btn_chat"
+        <ImageButton
+            android:id="@+id/ib_numero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="16dp"
             android:layout_margin="16dp"
             android:background="@drawable/bg_btn"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:text="Chat"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:src="@drawable/ic_phone"
+            app:tint="@android:color/white"/>
+
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

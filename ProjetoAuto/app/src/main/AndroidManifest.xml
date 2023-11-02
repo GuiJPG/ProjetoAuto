@@ -19,25 +19,24 @@
         android:theme="@style/Theme.ProjetoAuto"
         tools:targetApi="31">
 
-
         <activity
             android:name=".activity.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <!-- Telas de usuario -->
         <activity
             android:name=".activity.usuario.UsuarioHomeActivity"
-            android:theme="@style/Theme.ProjetoAuto1">
-        </activity>
+            android:theme="@style/Theme.ProjetoAuto2" />
         <activity android:name=".activity.usuario.UsuarioFavoritosActivity" />
         <activity android:name=".activity.usuario.UsuarioPerfilActivity" />
-        <activity android:name=".activity.usuario.UsuarioDetalheAutomovelActivity" /> <!-- Telas de empresa -->
+        <activity android:name=".activity.usuario.UsuarioDetalheAutomovelActivity" />
+        <activity android:name=".activity.usuario.UsuarioCalendarioActivity" />
+        <!-- Telas de empresa -->
         <activity android:name=".activity.empresa.EmpresaHomeActivity" />
         <activity android:name=".activity.empresa.EmpresaFinalizaCadastroActivity" />
         <activity android:name=".activity.empresa.EmpresaEnderecosActivity" />

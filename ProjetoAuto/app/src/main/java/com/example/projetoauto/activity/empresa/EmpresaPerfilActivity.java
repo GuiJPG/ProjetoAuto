@@ -176,8 +176,6 @@ public class EmpresaPerfilActivity extends AppCompatActivity {
     }
 
     private void validaDados() {
-
-
         String nome = edt_nome.getText().toString().trim();
         String telefone = edt_telefone.getUnMasked();
 

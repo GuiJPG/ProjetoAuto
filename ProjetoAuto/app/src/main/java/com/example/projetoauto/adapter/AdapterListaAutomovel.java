@@ -44,7 +44,6 @@ public class AdapterListaAutomovel extends RecyclerView.Adapter<AdapterListaAuto
                 Picasso.get().load(automovel.getUrlImagens().get(i).getCaminhoimagem()).into(holder.img_automovel);
             }
         }
-        //Picasso.get().load(automovel.getUrlImagens().get(0)).into(holder.img_automovel);
 
         holder.text_titulo.setText(automovel.getTitulo());
         holder.text_ano.setText(automovel.getAno());
