@@ -28,6 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <!-- Telas de usuario -->
         <activity
             android:name=".activity.usuario.UsuarioHomeActivity"
@@ -36,6 +37,9 @@
         <activity android:name=".activity.usuario.UsuarioPerfilActivity" />
         <activity android:name=".activity.usuario.UsuarioDetalheAutomovelActivity" />
         <activity android:name=".activity.usuario.UsuarioCalendarioActivity" />
+        <activity android:name=".activity.usuario.UsuarioHorariosActivity" />
+
+
         <!-- Telas de empresa -->
         <activity android:name=".activity.empresa.EmpresaHomeActivity" />
         <activity android:name=".activity.empresa.EmpresaFinalizaCadastroActivity" />
@@ -44,11 +48,17 @@
         <activity android:name=".activity.empresa.EmpresaFormEnderecoActivity" />
         <activity android:name=".activity.empresa.EmpresaFormAutoActivity" />
         <activity android:name=".activity.empresa.EmpresaTipoAutomovelActivity" />
-        <activity android:name=".activity.empresa.EmpresaSelecionaEnderecoActivity" /> <!-- Telas de Autenticação -->
+        <activity android:name=".activity.empresa.EmpresaSelecionaEnderecoActivity" />
+
+        <!-- Telas de Autenticação -->
         <activity android:name=".auth.LoginActivity" />
         <activity android:name=".auth.CriarContaActivity" />
-        <activity android:name=".auth.RecuperaContaActivity" /> <!-- Telas de MainActivity -->
-        <activity android:name=".activity.MainActivity" /> <!-- Provedor do app para acesso a camera -->
+        <activity android:name=".auth.RecuperaContaActivity" />
+
+        <!-- Telas de MainActivity -->
+        <activity android:name=".activity.MainActivity" />
+
+        <!-- Provedor do app para acesso a camera -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.projetoauto.fileprovider"

@@ -141,7 +141,6 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
         novoAutomovel = false;
     }
 
-
     private void configCliques() {
         findViewById(R.id.ib_voltar).setOnClickListener(v -> finish());
 
@@ -149,7 +148,6 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
         img1.setOnClickListener(v -> showBottomDialog(1));
         img2.setOnClickListener(v -> showBottomDialog(2));
     }
-
 
     // Validar os campos do formulario
     public void validaDados(View view) {
@@ -473,7 +471,6 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
         }
 
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

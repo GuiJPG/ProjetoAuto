@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -18,9 +20,9 @@ import com.example.projetoauto.helper.FirebaseHelper;
 import com.example.projetoauto.helper.Mascara;
 import com.example.projetoauto.model.Automovel;
 
+import com.example.projetoauto.model.Empresa;
 import com.example.projetoauto.model.Favorito;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,6 +32,7 @@ import com.like.OnLikeListener;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +57,7 @@ public class UsuarioDetalheAutomovelActivity extends AppCompatActivity implement
     private LikeButton like_Button;
 
     private Automovel automovel;
+    private Empresa empresa;
 
     private final List<String> favoritosList = new ArrayList<>();
 
@@ -64,12 +68,15 @@ public class UsuarioDetalheAutomovelActivity extends AppCompatActivity implement
 
         iniciaComponentes();
 
+
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
 
             automovel = (Automovel) bundle.getSerializable("automovelSelecionado");
 
             configDados();
+
+            recuperaEmpresa();
 
         }
 
@@ -176,9 +183,52 @@ public class UsuarioDetalheAutomovelActivity extends AppCompatActivity implement
 
     private void configCliques() {
         findViewById(R.id.ib_voltar).setOnClickListener(v -> finish());
-        findViewById(R.id.ib_numero).setOnClickListener(this);
+        findViewById(R.id.ib_telefone).setOnClickListener(v -> whatsappTelefone());
         findViewById(R.id.ib_agenda).setOnClickListener(this);
         findViewById(R.id.ib_localizacao).setOnClickListener(this);
+    }
+
+    private void whatsappTelefone() {
+        if (FirebaseHelper.getAutenticado()) {
+            if (whatsappNaoInstalado()) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=" + empresa.getTelefone()));
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "Whatsapp Não instalado", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            alertAutenticacao("Você não esta atenticado");
+        }
+    }
+
+    private boolean whatsappNaoInstalado() {
+        PackageManager packageManager = getPackageManager();
+        boolean whatsappInstalled;
+        try {
+            packageManager.getPackageInfo("com.whatsapp", PackageManager.GET_ACTIVITIES);
+            whatsappInstalled = true;
+        } catch (PackageManager.NameNotFoundException e) {
+            whatsappInstalled = false;
+        }
+        return whatsappInstalled;
+
+    }
+
+    private void recuperaEmpresa() {
+        DatabaseReference empresaRef = FirebaseHelper.getDatabaseReference()
+                .child("empresas")
+                .child(automovel.getIdEmpresa());
+        empresaRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                empresa = snapshot.getValue(Empresa.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void configDados() {
@@ -221,7 +271,6 @@ public class UsuarioDetalheAutomovelActivity extends AppCompatActivity implement
         like_Button = findViewById(R.id.like_button);
     }
 
-
     @Override
     public void onClick(View view) {
 
@@ -229,15 +278,9 @@ public class UsuarioDetalheAutomovelActivity extends AppCompatActivity implement
 
             switch (view.getId()) {
 
-                case R.id.ib_numero:
-                    Toast.makeText(this, "Numero de Telefone", Toast.LENGTH_SHORT).show();
-
-                    break;
-
                 case R.id.ib_agenda:
                     Intent intent = new Intent(this, UsuarioCalendarioActivity.class);
                     startActivity(intent);
-                    //Toast.makeText(this, "Acessar Agenda", Toast.LENGTH_SHORT).show();
 
                     break;
 

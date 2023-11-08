@@ -19,7 +19,6 @@ public class Empresa implements Serializable {
     private String senha;
     private String imagemLogo;
     private Boolean acesso;
-    private String categoria;
 
     private String endereco;
 
@@ -105,14 +104,6 @@ public class Empresa implements Serializable {
 
     public void setAcesso(Boolean acesso) {
         this.acesso = acesso;
-    }
-
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
     }
 
     public String getEndereco() {

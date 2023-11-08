@@ -193,16 +193,6 @@ public class Automovel implements Serializable {
         return urlImagens;
     }
 
-    /*public void setUrlImagens(List<Imagem> urlImagens) {
-        this.urlImagens = urlImagens;
-    }
-
-    public String getIdEndereco() {
-        return idEndereco;
-    } */
-
-
-
     public void setIdEndereco(String idEndereco) {
         this.idEndereco = idEndereco;
     }

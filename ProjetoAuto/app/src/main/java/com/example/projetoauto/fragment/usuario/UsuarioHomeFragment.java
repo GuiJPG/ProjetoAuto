@@ -102,10 +102,9 @@ public class UsuarioHomeFragment extends Fragment implements AdapterListaAutomov
 
     private void iniciarComponentes(View view) {
         rv_automoveis = view.findViewById(R.id.rv_automoveis);
+
         progressBar = view.findViewById(R.id.progressBar);
         text_info = view.findViewById(R.id.text_info);
-
-        //view.findViewById(R.id.ib_voltar).setOnClickListener(v -> requireActivity().finish());
 
 
     }
@@ -113,7 +112,7 @@ public class UsuarioHomeFragment extends Fragment implements AdapterListaAutomov
     @Override
     public void OnClick(Automovel automovel) {
         Intent intent = new Intent(requireContext(), UsuarioDetalheAutomovelActivity.class);
-        intent.putExtra("automovelSelecionado",automovel);
+        intent.putExtra("automovelSelecionado", automovel);
         startActivity(intent);
     }
 }

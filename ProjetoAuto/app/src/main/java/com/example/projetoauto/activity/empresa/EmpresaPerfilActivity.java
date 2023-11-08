@@ -61,6 +61,8 @@ public class EmpresaPerfilActivity extends AppCompatActivity {
     private Empresa empresa;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +80,7 @@ public class EmpresaPerfilActivity extends AppCompatActivity {
         findViewById(R.id.ib_voltar).setOnClickListener(v -> finish());
         ib_salvar.setOnClickListener(v -> validaDados());
     }
+
 
     private void recuperaEmpresa() {
         DatabaseReference empresaRef = FirebaseHelper.getDatabaseReference()
