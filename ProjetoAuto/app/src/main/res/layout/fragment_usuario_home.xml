@@ -17,8 +17,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <SearchView
-            android:id="@+id/pesquisar_view"
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -26,6 +26,9 @@
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/bg_pesquisar"
+            app:queryHint="Procurando..."
+            app:iconifiedByDefault="false"
+            app:queryBackground="@android:color/transparent"
             android:imeOptions="actionSearch" />
     </LinearLayout>
 
@@ -40,13 +43,16 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
         <android.widget.Button
+            android:id="@+id/btn_tipos"
             style="?attr/buttonBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:layout_weight="1"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="Categoria"
+            android:text="Tipos"
             android:textColor="@color/blue_dark"
             android:textSize="16sp" />
 
@@ -56,10 +62,13 @@
             android:background="?actionBarDivider" />
 
         <android.widget.Button
+            android:id="@+id/btn_filtros"
             style="?attr/buttonBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:text="Filtros"
@@ -69,37 +78,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        tools:visibility="visible"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:layout_weight="4"
-            tools:text="Categoria A" />
-
-        <android.widget.Button
-            android:id="@+id/button2"
-            style="?attr/buttonBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Limpar"
-            android:textColor="@color/blue_dark"
-            android:textSize="16sp" />
-
-    </LinearLayout>
 
 
     <!-- Carregamento -->
@@ -112,7 +91,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
         tools:ignore="MissingConstraints">
 
         <ProgressBar
@@ -140,7 +119,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
         app:leftBgColor="@color/blue"
         app:leftImage="@drawable/ic_edit"
         app:rightBgColor="@color/red"

@@ -1,4 +1,4 @@
-package com.example.projetoauto.activity.empresa;
+package com.example.projetoauto.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,10 +13,12 @@ import com.example.projetoauto.adapter.AdapterTipo;
 import com.example.projetoauto.helper.TipoList;
 import com.example.projetoauto.model.Tipo;
 
-public class EmpresaTipoAutomovelActivity extends AppCompatActivity implements AdapterTipo.OnClickListener {
+public class TipoAutomovelActivity extends AppCompatActivity implements AdapterTipo.OnClickListener {
 
     private RecyclerView rv_tipo;
     private AdapterTipo adapterTipo;
+
+    private boolean todosTipos = false;
 
 
     @Override
@@ -27,6 +29,11 @@ public class EmpresaTipoAutomovelActivity extends AppCompatActivity implements A
 
         iniciarComponentes();
 
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null){
+            todosTipos = (Boolean) bundle.getSerializable("Todos os Tipos");
+        }
+
         configCliques();
 
         iniciaRv();
@@ -35,7 +42,7 @@ public class EmpresaTipoAutomovelActivity extends AppCompatActivity implements A
     private void iniciaRv() {
         rv_tipo.setLayoutManager(new LinearLayoutManager(this));
         rv_tipo.setHasFixedSize(true);
-        adapterTipo = new AdapterTipo(TipoList.getList(false), this);
+        adapterTipo = new AdapterTipo(TipoList.getList(todosTipos), this);
         rv_tipo.setAdapter(adapterTipo);
 
     }
@@ -58,4 +65,5 @@ public class EmpresaTipoAutomovelActivity extends AppCompatActivity implements A
         setResult(RESULT_OK, intent);
         finish();
     }
+
 }

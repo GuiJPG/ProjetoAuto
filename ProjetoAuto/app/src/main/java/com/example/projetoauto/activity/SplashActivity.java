@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 
 import com.example.projetoauto.R;
 import com.example.projetoauto.activity.empresa.EmpresaFinalizaCadastroActivity;
@@ -12,6 +14,7 @@ import com.example.projetoauto.activity.empresa.EmpresaHomeActivity;
 import com.example.projetoauto.activity.usuario.UsuarioHomeActivity;
 import com.example.projetoauto.auth.CriarContaActivity;
 import com.example.projetoauto.helper.FirebaseHelper;
+import com.example.projetoauto.helper.SPFiltro;
 import com.example.projetoauto.model.Empresa;
 import com.example.projetoauto.model.Login;
 import com.example.projetoauto.model.Usuario;
@@ -26,14 +29,19 @@ public class SplashActivity extends AppCompatActivity {
     private Usuario usuario;
     private Empresa empresa;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        new Handler(Looper.getMainLooper()).postDelayed(this::verificaAuth, 3000);
+
         verificaAuth();
 
     }
+
+
     private void verificaAuth() {
         if (FirebaseHelper.getAutenticado()) {
             verificaCadastro();
@@ -42,6 +50,7 @@ public class SplashActivity extends AppCompatActivity {
         }
 
     }
+
     private void verificaCadastro() {
         DatabaseReference loginRef = FirebaseHelper.getDatabaseReference()
                 .child("login")
@@ -59,6 +68,7 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
     }
+
     private void verificaAcesso(Login login) {
         if (login != null) {
             if (login.getTipo().equals("U")) {
@@ -78,6 +88,7 @@ public class SplashActivity extends AppCompatActivity {
             }
         }
     }
+
     private void recuperaUsuario() {
         DatabaseReference usuarioRef = FirebaseHelper.getDatabaseReference()
                 .child("usuarios")
@@ -101,6 +112,7 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
     }
+
     private void recuperaEmpresa() {
         DatabaseReference empresaRef = FirebaseHelper.getDatabaseReference()
                 .child("empresas")

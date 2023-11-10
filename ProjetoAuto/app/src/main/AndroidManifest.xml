@@ -19,12 +19,12 @@
         android:theme="@style/Theme.ProjetoAuto"
         tools:targetApi="31">
 
+
         <activity
             android:name=".activity.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -39,7 +39,6 @@
         <activity android:name=".activity.usuario.UsuarioCalendarioActivity" />
         <activity android:name=".activity.usuario.UsuarioHorariosActivity" />
 
-
         <!-- Telas de empresa -->
         <activity android:name=".activity.empresa.EmpresaHomeActivity" />
         <activity android:name=".activity.empresa.EmpresaFinalizaCadastroActivity" />
@@ -47,7 +46,6 @@
         <activity android:name=".activity.empresa.EmpresaPerfilActivity" />
         <activity android:name=".activity.empresa.EmpresaFormEnderecoActivity" />
         <activity android:name=".activity.empresa.EmpresaFormAutoActivity" />
-        <activity android:name=".activity.empresa.EmpresaTipoAutomovelActivity" />
         <activity android:name=".activity.empresa.EmpresaSelecionaEnderecoActivity" />
 
         <!-- Telas de Autenticação -->
@@ -56,7 +54,9 @@
         <activity android:name=".auth.RecuperaContaActivity" />
 
         <!-- Telas de MainActivity -->
+        <activity android:name=".activity.FiltrosActivity" />
         <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.TipoAutomovelActivity" />
 
         <!-- Provedor do app para acesso a camera -->
         <provider

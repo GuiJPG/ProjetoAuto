@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.blackcat.currencyedittext.CurrencyEditText;
 import com.example.projetoauto.R;
+import com.example.projetoauto.activity.TipoAutomovelActivity;
 import com.example.projetoauto.helper.FirebaseHelper;
 import com.example.projetoauto.helper.Mascara;
 import com.example.projetoauto.model.Automovel;
@@ -436,7 +437,7 @@ public class EmpresaFormAutoActivity extends AppCompatActivity {
 
     // Validar os tipos e o endereço
     public void selecionarTipo(View view) {
-        Intent intent = new Intent(this, EmpresaTipoAutomovelActivity.class);
+        Intent intent = new Intent(this, TipoAutomovelActivity.class);
         startActivityForResult(intent, REQUEST_TIPO);
     }
 
