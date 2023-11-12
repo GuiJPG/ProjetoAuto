@@ -54,6 +54,7 @@ public class UsuarioCalendarioActivity extends AppCompatActivity implements Cale
     private Long dataLong;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,6 +128,7 @@ public class UsuarioCalendarioActivity extends AppCompatActivity implements Cale
 
         ano_atual = Integer.parseInt(ano.format(dataLong));
 
+
     }
 
 
@@ -144,6 +146,7 @@ public class UsuarioCalendarioActivity extends AppCompatActivity implements Cale
         Locale locale = new Locale("pt", "BR");
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", locale);
         Calendar data = Calendar.getInstance();
+
 
         try {
             data.setTime(simpleDateFormat.parse(diaSelecionado + "/" + mesSelecionado + "/" + anoSelecionado));

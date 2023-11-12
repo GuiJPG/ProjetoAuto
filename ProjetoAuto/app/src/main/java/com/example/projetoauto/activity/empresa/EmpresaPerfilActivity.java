@@ -61,8 +61,6 @@ public class EmpresaPerfilActivity extends AppCompatActivity {
     private Empresa empresa;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

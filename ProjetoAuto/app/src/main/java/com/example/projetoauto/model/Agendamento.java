@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.example.projetoauto.helper.FirebaseHelper;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.Serializable;
 
@@ -19,6 +20,7 @@ public class Agendamento implements Serializable {
 
     private String horario;
     private Usuario usuario;
+
 
 
     public Agendamento() {
@@ -38,6 +40,14 @@ public class Agendamento implements Serializable {
 
 
         activity.finish();
+    }
+
+    public void remover() {
+        DatabaseReference agendamentoRef = FirebaseHelper.getDatabaseReference()
+                .child("agendamentos")
+                .child(FirebaseHelper.getIdFirebase())
+                .child(this.getId());
+        agendamentoRef.removeValue();
     }
 
 

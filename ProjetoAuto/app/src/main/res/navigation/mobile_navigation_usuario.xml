@@ -12,11 +12,6 @@
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_usuario_home" />
     <fragment
-        android:id="@+id/menu_chat_usuario"
-        android:name="com.example.projetoauto.fragment.usuario.UsuarioChatFragment"
-        android:label="@string/menu_chat"
-        tools:layout="@layout/fragment_usuario_chat" />
-    <fragment
         android:id="@+id/menu_agenda_usuario"
         android:name="com.example.projetoauto.fragment.usuario.UsuarioAgendaFragment"
         android:label="@string/menu_agenda"

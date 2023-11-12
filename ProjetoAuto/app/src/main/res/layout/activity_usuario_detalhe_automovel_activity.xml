@@ -65,22 +65,9 @@
             android:paddingEnd="10dp"
             android:src="@drawable/ic_calendario_off"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/ib_localizacao"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@android:color/white" />
-
-        <ImageButton
-            android:id="@+id/ib_localizacao"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@color/blue_dark"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:src="@drawable/ic_localizacao"
-            app:tint="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:tint="@android:color/white" />
 
 
 

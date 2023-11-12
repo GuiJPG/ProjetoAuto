@@ -185,7 +185,6 @@ public class UsuarioDetalheAutomovelActivity extends AppCompatActivity implement
         findViewById(R.id.ib_voltar).setOnClickListener(v -> finish());
         findViewById(R.id.ib_telefone).setOnClickListener(v -> whatsappTelefone());
         findViewById(R.id.ib_agenda).setOnClickListener(this);
-        findViewById(R.id.ib_localizacao).setOnClickListener(this);
     }
 
     private void whatsappTelefone() {
@@ -281,11 +280,6 @@ public class UsuarioDetalheAutomovelActivity extends AppCompatActivity implement
                 case R.id.ib_agenda:
                     Intent intent = new Intent(this, UsuarioCalendarioActivity.class);
                     startActivity(intent);
-
-                    break;
-
-                case R.id.ib_localizacao:
-                    Toast.makeText(this, "Acessar Localização", Toast.LENGTH_SHORT).show();
 
                     break;
             }
